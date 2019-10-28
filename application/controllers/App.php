@@ -52,6 +52,45 @@ class App extends CI_Controller {
 		$this->load->view('f_index', $data);
     }
 
+    public function info_pemilihan($id_pemilihan)
+	{
+        if ($this->session->userdata('username') == '') {
+            redirect('app/login');
+        }
+		$data = array(
+			'konten' => 'front/info_pemilihan',
+            'judul_page' => 'Info Pemilihan',
+            'data' => $this->db->get_where('pemilihan', array('id_pemilihan'=>$id_pemilihan))
+		);
+		$this->load->view('f_index', $data);
+    }
+
+    public function lihat_hasil($id_pemilihan)
+	{
+        if ($this->session->userdata('username') == '') {
+            redirect('app/login');
+        }
+		$data = array(
+			'konten' => 'front/lihat_hasil',
+            'judul_page' => 'Lihat Hasil Pemilihan',
+            'data' => $this->db->get_where('pemilihan', array('id_pemilihan'=>$id_pemilihan))
+		);
+		$this->load->view('f_index', $data);
+    }
+
+    public function lakukan_pemilihan($id_pemilihan)
+	{
+        if ($this->session->userdata('username') == '') {
+            redirect('app/login');
+        }
+		$data = array(
+			'konten' => 'front/pilih_calon',
+            'judul_page' => 'Lakukukan Pemilihan',
+            'id_pemilihan' => $id_pemilihan,
+		);
+		$this->load->view('f_index', $data);
+    }
+
     public function data_pemilihan()
     {
     	if ($this->session->userdata('username') == '') {

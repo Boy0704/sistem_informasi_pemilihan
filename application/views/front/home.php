@@ -1,6 +1,6 @@
 <div id="page">
         <div class="header header-fixed header-logo-app">
-            <a href="index.html" class="header-title ultrabold"
+            <a href="" class="header-title ultrabold"
                 style="margin-left: 15px!important;font-size: 18px;"><span class="color-highlight">SIS</span>PANLIH</a>
             <a href="#" class="header-icon header-icon-2" data-toggle-theme><i class="fas fa-moon"></i></a>
         </div>
@@ -9,21 +9,38 @@
 
         <div class="page-content header-clear">
             <link rel="stylesheet" type="text/css" href="front/styles/sisp.css">
-            <div class="single-slider owl-carousel owl-no-dots bottom-30">
+            <div class="double-slider owl-carousel owl-no-dots">
                 <?php 
                 $this->db->limit(5);
                 foreach ($this->db->get('pemilihan')->result() as $rw) {
 
                  ?>
-                <a href="#" class="sisp-slide-1">
+                <!-- <a href="#" class="sisp-slide-1">
                     <img src="front/images/pictures/17m.jpg" class="responsive-image" alt="">
                     <strong class="font-16"><?php echo $rw->nama_pemilihan ?>.</strong>
                     <em class="bg-aktif">Aktif</em>
                     <span class="bg-gradient"></span>
-                </a>
+                </a> -->
+
+
+
+               
+                <div>
+                    <div class="caption round-medium shadow-large">
+                        <div class="caption-bottom">
+                            <h4 class="color-white center-text uppercase ultrabold bottom-40"><?php echo $rw->nama_pemilihan ?></h4>
+                        </div>
+                        <div class="caption-overlay bg-gradient"></div>
+                        <img class="caption-image owl-lazy" data-src="front/images/pictures/13l.jpg">
+                    </div>
+                    
+                </div>
+
             <?php } ?>
                 
             </div>
+
+            <div class="divider divider-margins"></div>
 
             <div class="content">
                 <div class="one-half">
@@ -117,22 +134,22 @@
             <div class="divider-small"></div>
             <h6 class="center-text">Kabupaten Bogor</h6>
             <div class="link-list link-list-1 content bottom-0">
-                <a href="info-pemilihan.html" class="">
+                <a href="app/info_pemilihan/2" class="">
                     <i class="fas fa-info-circle fa-lg"></i>
                     <span class="font-13">Informasi Pemilihan</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="pilih-login.html" class="">
+                <a href="app/lakukan_pemilihan/2" class="">
                     <i class="fas fa-chevron-circle-up fa-2x fa-spin" style="color:green"></i>
                     <span class="font-13">Lakukan Pemilihan</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="lihat-hasil.html" class="">
+                <a href="app/lihat_hasil/2" class="">
                     <i class="fas fa-poll fa-lg" style="color:green"></i>
                     <span class="font-13">Lihat Hasil Pemilihan</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="status-pemilih.html" class="">
+                <a href="app/lihat_status_pemilih/2" class="">
                     <i class="fas fa-user-check fa-lg" style="color:green"></i>
                     <span class="font-13">Lihat Status Pemilih</span>
                     <i class="fa fa-angle-right"></i>
