@@ -86,7 +86,9 @@ class Pemilihan extends CI_Controller
 	    'kecamatan' => set_value('kecamatan'),
 	    'kelurahan' => set_value('kelurahan'),
 	    'start_date' => set_value('start_date'),
-	    'end_date' => set_value('end_date'),
+        'end_date' => set_value('end_date'),
+        'id_user' => set_value('id_user'),
+	    'status' => set_value('status'),
 	);
         $this->load->view('v_index', $data);
     }
@@ -108,7 +110,9 @@ class Pemilihan extends CI_Controller
 		'kecamatan' => $this->input->post('kecamatan',TRUE),
 		'kelurahan' => $this->input->post('kelurahan',TRUE),
 		'start_date' => $this->input->post('start_date',TRUE),
-		'end_date' => $this->input->post('end_date',TRUE),
+        'end_date' => $this->input->post('end_date',TRUE),
+        'id_user' => $this->input->post('id_user',TRUE),
+		'status' => $this->input->post('status',TRUE),
 	    );
 
             $this->Pemilihan_model->insert($data);
@@ -137,7 +141,9 @@ class Pemilihan extends CI_Controller
 		'kecamatan' => set_value('kecamatan', $row->kecamatan),
 		'kelurahan' => set_value('kelurahan', $row->kelurahan),
 		'start_date' => set_value('start_date', $row->start_date),
-		'end_date' => set_value('end_date', $row->end_date),
+        'end_date' => set_value('end_date', $row->end_date),
+        'id_user' => set_value('id_user', $row->id_user),
+		'status' => set_value('status', $row->status),
 	    );
             $this->load->view('v_index', $data);
         } else {
@@ -163,7 +169,9 @@ class Pemilihan extends CI_Controller
 		'kecamatan' => $this->input->post('kecamatan',TRUE),
 		'kelurahan' => $this->input->post('kelurahan',TRUE),
 		'start_date' => $this->input->post('start_date',TRUE),
-		'end_date' => $this->input->post('end_date',TRUE),
+        'end_date' => $this->input->post('end_date',TRUE),
+        'id_user' => $this->input->post('id_user',TRUE),
+		'status' => $this->input->post('status',TRUE),
 	    );
 
             $this->Pemilihan_model->update($this->input->post('id_pemilihan', TRUE), $data);

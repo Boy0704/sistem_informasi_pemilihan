@@ -18,9 +18,23 @@
         </div>
 	    <div class="form-group">
             <label for="tinyint">Status <?php echo form_error('status') ?></label>
-            <input type="text" class="form-control" name="status" id="status" placeholder="Status" value="<?php echo $status; ?>" />
+            <!-- <input type="text" class="form-control" name="status" id="status" placeholder="Status" value="<?php echo $status; ?>" /> -->
+            <select name="status" class="form-control">
+                <option value="<?php echo $status ?>"><?php echo $status ?></option>
+                <option value="1">Aktif</option>
+                <option value="0">Tidak Aktif</option>
+            </select>
         </div>
-	    <input type="hidden" name="id" value="<?php echo $id; ?>" /> 
+	    <div class="form-group">
+            <label for="varchar">Akses <?php echo form_error('akses') ?></label>
+            <!-- <input type="text" class="form-control" name="akses" id="akses" placeholder="Akses" value="<?php echo $akses; ?>" /> -->
+            <select name="akses" class="form-control">
+                <option value="<?php echo $akses ?>"><?php echo $akses ?></option>
+                <option value="admin">Admin</option>
+                <option value="panitia">Panitia</option>
+            </select>
+        </div>
+	    <input type="hidden" name="id_user" value="<?php echo $id_user; ?>" /> 
 	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 
 	    <a href="<?php echo site_url('admin') ?>" class="btn btn-default">Cancel</a>
 	</form>

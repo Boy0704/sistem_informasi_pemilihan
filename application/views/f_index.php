@@ -15,7 +15,9 @@
     <link rel="stylesheet" type="text/css" href="front/styles/framework.css">
     <link rel="stylesheet" type="text/css" href="front/fonts/css/fontawesome-all.min.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 </head>
 
 <body class="theme-light" data-highlight="blue2">
@@ -31,6 +33,6 @@
 
     <script type="text/javascript"><?php echo $this->session->userdata('message') ?></script>
     <script type="text/javascript" src="front/scripts/jquery.js"></script>
-    <script type="text/javascript" src="front/scripts/plugins.js" async></script>
-    <script type="text/javascript" src="front/scripts/custom.js" async></script>
+    <script type="text/javascript" src="front/scripts/plugins.js" ></script>
+    <script type="text/javascript" src="front/scripts/custom.js" ></script>
 </body>

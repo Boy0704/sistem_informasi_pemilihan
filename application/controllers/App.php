@@ -31,7 +31,7 @@ class App extends CI_Controller {
     public function panitia()
 	{
         if ($this->session->userdata('username') == '') {
-            redirect('app/login');
+            redirect('app/login','refresh');
         }
 		$data = array(
 			'konten' => 'front/panitia',
@@ -43,7 +43,7 @@ class App extends CI_Controller {
     public function bantuan()
 	{
         if ($this->session->userdata('username') == '') {
-            redirect('app/login');
+            redirect('app/login','refresh');
         }
 		$data = array(
 			'konten' => 'front/bantuan',
@@ -55,7 +55,7 @@ class App extends CI_Controller {
     public function info_pemilihan($id_pemilihan)
 	{
         if ($this->session->userdata('username') == '') {
-            redirect('app/login');
+            redirect('app/login','refresh');
         }
 		$data = array(
 			'konten' => 'front/info_pemilihan',
@@ -68,7 +68,7 @@ class App extends CI_Controller {
     public function lihat_hasil($id_pemilihan)
 	{
         if ($this->session->userdata('username') == '') {
-            redirect('app/login');
+            redirect('app/login','refresh');
         }
 		$data = array(
 			'konten' => 'front/lihat_hasil',
@@ -81,7 +81,7 @@ class App extends CI_Controller {
     public function lakukan_pemilihan($id_pemilihan)
 	{
         if ($this->session->userdata('username') == '') {
-            redirect('app/login');
+            redirect('app/login','refresh');
         }
 		$data = array(
 			'konten' => 'front/pilih_calon',
@@ -94,7 +94,7 @@ class App extends CI_Controller {
     public function data_pemilihan()
     {
     	if ($this->session->userdata('username') == '') {
-            redirect('app/login');
+            redirect('app/login','refresh');
         }
 
 		if ($_POST == NULL) {
@@ -109,14 +109,14 @@ class App extends CI_Controller {
 			$insert_id = $this->db->insert_id();
 			$this->session->set_flashdata('message', alert_biasa('Berhasil Simpan Data!','success'));
 			$this->session->set_flashdata('id_pemilihan', $insert_id);
-			redirect('app/data_pemilihan');
+			redirect('app/data_pemilihan','refresh');
 		}
     }
 
     public function data_calon($id)
     {
     	if ($this->session->userdata('username') == '') {
-            redirect('app/login');
+            redirect('app/login','refresh');
         }
 
 		if ($_POST == NULL) {
@@ -135,7 +135,7 @@ class App extends CI_Controller {
     public function data_pemilih()
     {
     	if ($this->session->userdata('username') == '') {
-            redirect('app/login');
+            redirect('app/login','refresh');
         }
 
 		if ($_POST == NULL) {
@@ -147,7 +147,7 @@ class App extends CI_Controller {
 		} else {
 			$this->db->insert('pemilih', $_POST);
 			$this->session->set_flashdata('message', alert_biasa('Berhasil Simpan Data!','success'));
-			redirect('app/data_pemilih');
+			redirect('app/data_pemilih','refresh');
 		}
     }
 
@@ -157,25 +157,12 @@ class App extends CI_Controller {
 
 	public function login() 
 	{
-	// {
-	// 	$options = [
-	// 		'cost' => 10,
-	// 	];
-		
-	// 	echo password_hash("admin", PASSWORD_DEFAULT, $options);
+		$this->load->view('login');
+	}
 
-		// $hashed = '$2y$10$LO9IzV0KAbocIBLQdgy.oeNDFSpRidTCjXSQPK45ZLI9890g242SG';
- 
-		// if (password_verify('admin', $hashed)) {
-		// 	echo '<br>Password is valid!';
-		// } else {
-		// 	echo 'Invalid password.';
-		// }
-		// exit;
-		if ($this->input->post() == NULL) {
-			$this->load->view('login');
-		} else {
-			$username = $this->input->post('username');
+	public function aksi_login()
+	{
+		$username = $this->input->post('username');
 			$password = md5($this->input->post('password'));
 
 			// $hashed = '$2y$10$LO9IzV0KAbocIBLQdgy.oeNDFSpRidTCjXSQPK45ZLI9890g242SG';
@@ -205,8 +192,6 @@ class App extends CI_Controller {
 				$this->session->set_flashdata('message', alert_biasa('Gagal Login!\n username atau password kamu salah','warning'));
 				redirect('app/login','refresh');
 			}
-
-		}
 	}
 
 	
@@ -218,7 +203,7 @@ class App extends CI_Controller {
 		$this->session->unset_userdata('username');
 		$this->session->unset_userdata('level');
 		session_destroy();
-		redirect('app');
+		redirect('app','refresh');
 	}
 
 	

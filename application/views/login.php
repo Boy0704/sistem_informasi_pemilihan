@@ -58,18 +58,18 @@
                             <p class="color-highlight center-text font-12 under-heading bottom-30 top-5">
                                 Masuk untuk mengelola Pemilihanmu.
                             </p>
-                            <form action="" method="post">
+                            <form action="app/aksi_login" method="post">
                             <div class="input-style input-light has-icon input-style-1 input-required">
                                 <i class="input-icon fa fa-user font-11"></i>
                                 <span>username</span>
                                 <em>(wajib terisi)</em>
-                                <input type="text" name="username" placeholder="Username">
+                                <input type="text" name="username" placeholder="Username" autocomplete="off">
                             </div>
                             <div class="input-style input-light has-icon input-style-1 input-required bottom-30">
                                 <i class="input-icon fa fa-lock font-11"></i>
                                 <span>Kata Sandi</span>
                                 <em>(wajib terisi)</em>
-                                <input type="password" name="password" placeholder="Kata Sandi">
+                                <input type="password" name="password" placeholder="Kata Sandi" autocomplete="off">
                             </div>
                             <div class="one-half">
                                 <a href="daftar-akun.html" class="font-11 color-white opacity-50">Daftar</a>

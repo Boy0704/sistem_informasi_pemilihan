@@ -553,7 +553,7 @@ $(document).ready(function(){
         //Toasts Function//
         var toast = $('[data-toast-id]');
         function activate_toasts(){     
-            console.log('test');
+            // console.log('test');
             var toastDataAuto  = $('a[data-toast-id]');
             var toastDataManual = $('a[data-toast-manual-id]');
             

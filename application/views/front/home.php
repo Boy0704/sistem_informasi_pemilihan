@@ -49,7 +49,7 @@
 
                      ?>
                     <div class="sisp-col-item">
-                        <a href="#" data-menu="menu-pemilihan">
+                        <a href="#" @click="infoModal('<?php echo $rw->id_pemilihan ?>','<?php echo $rw->nama_pemilihan ?>','<?php echo $rw->kelurahan ?>')" data-menu="menu-pemilihan">
                             <img class="preload-image shadow-large round-small" src="front/images/empty.png"
                                 data-src="front/images/pictures/8s.jpg" class="responsive-image" alt="img">
                             <em class="bg-aktif"> <?php echo selisih_waktu($rw->start_date) ?></em>
@@ -79,7 +79,7 @@
 
                 <a href="pemilihan-aktif.html"
                     class="button button-s button-full button-round-medium bg-highlight shadow-large">LIHAT
-                    SEMUA PEMILIHAN AKTIF</a>
+                    SEMUA PEMILIHAN AKTIF </a>
 
             </div>
 
@@ -91,24 +91,6 @@
                         <strong>Pemilihan Ketua Kelas IX-4 SD Baranangsiang Pagi</strong>
                     </a>
                     <span><i class="fas fa-map-marked-alt"></i>Kabupaten Bogor <a href="#"
-                            class="bg-arsip">Arsip</a></span>
-                </div>
-                <div class="sisp-list-item">
-                    <a href="#">
-                        <img class="preload-image shadow-large round-small" src="front/images/empty.png"
-                            data-src="front/images/pictures/5s.jpg" alt="img">
-                        <strong>Pemilihan Puteri Indoneisa Putaran ke-2 Tingkay Provinsi</strong>
-                    </a>
-                    <span><i class="fas fa-map-marked-alt"></i>Jakarta Timur <a href="#"
-                            class="bg-arsip">Arsip</a></span>
-                </div>
-                <div class="sisp-list-item">
-                    <a href="#">
-                        <img class="preload-image shadow-large round-small" src="front/images/empty.png"
-                            data-src="front/images/pictures/7s.jpg" alt="img">
-                        <strong>Pemilihan Duta Suara Rakyat Festival Seni Nasional</strong>
-                    </a>
-                    <span><i class="fas fa-map-marked-alt"></i>Kabupaten Tasikmalaya <a href="#"
                             class="bg-arsip">Arsip</a></span>
                 </div>
                 <div class="sisp-list-item no-border bottom-0">
@@ -129,27 +111,27 @@
         </div>
 
         <!-- Menu Lakukan Pemilihan REV -->
-        <div id="menu-pemilihan" class="menu menu-box-modal data-menu-height="320" data-menu-width="310" data-menu-effect="menu-over">
-            <h4 class="center-text top-30">Pemilihan Ketua OSIS SMP Muhammadiyah Puraseda Rev</h4>
+        <div id="menu-pemilihan" class="menu menu-box-modal" data-menu-height="320" data-menu-width="310" data-menu-effect="menu-over">
+            <h4 class="center-text top-30">{{judul}}</h4>
             <div class="divider-small"></div>
-            <h6 class="center-text">Kabupaten Bogor</h6>
+            <h6 class="center-text">{{kab}}</h6>
             <div class="link-list link-list-1 content bottom-0">
-                <a href="app/info_pemilihan/2" class="">
+                <a :href="link1" class="">
                     <i class="fas fa-info-circle fa-lg"></i>
                     <span class="font-13">Informasi Pemilihan</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="app/lakukan_pemilihan/2" class="">
+                <a :href="link2" class="">
                     <i class="fas fa-chevron-circle-up fa-2x fa-spin" style="color:green"></i>
                     <span class="font-13">Lakukan Pemilihan</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="app/lihat_hasil/2" class="">
+                <a :href="link3" class="">
                     <i class="fas fa-poll fa-lg" style="color:green"></i>
                     <span class="font-13">Lihat Hasil Pemilihan</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="app/lihat_status_pemilih/2" class="">
+                <a :href="link4" class="">
                     <i class="fas fa-user-check fa-lg" style="color:green"></i>
                     <span class="font-13">Lihat Status Pemilih</span>
                     <i class="fa fa-angle-right"></i>
@@ -176,3 +158,30 @@
 
         <div class="menu-hider"></div>
     </div>
+
+<script type="text/javascript">
+    var vm = new Vue({
+    el: "#page",
+    data : {
+        judul : '',
+        kab : '',
+        link1 : '',
+        link2 : '',
+        link3 : '',
+        link4 : '',
+    },
+    computed:{
+        
+    }, 
+    methods:{
+        infoModal: function(id_p,judul,kab) {
+            this.judul = judul
+            this.kab = kab
+            this.link1 = 'app/info_pemilihan/'+id_p
+            this.link2 = 'app/lakukan_pemilihan/'+id_p
+            this.link3 = 'app/lihat_hasil/'+id_p
+            this.link4 = 'app/lihat_status_pemilih/'+id_p
+        }
+    }
+})
+</script>

@@ -1,7 +1,7 @@
 <div id="page">
             <div class="header header-fixed header-logo-app">
                 <a href="#" class="header-title">Data Calon</a>
-                <a href="#" class="header-icon header-icon-1" data-back-button><i class="fa fa-arrow-left"></i></a>
+                <a href="app" class="header-icon header-icon-1" data-back-button><i class="fa fa-arrow-left"></i></a>
                 <a href="app/panitia" class="header-icon header-icon-3"><i class="fas fa-home"></i></a>
                 <a href="#" class="header-icon header-icon-2" data-toggle-theme><i class="fas fa-moon"></i></a>
             </div>

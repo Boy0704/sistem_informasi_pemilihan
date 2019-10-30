@@ -32,16 +32,18 @@
         <table class="table table-bordered" style="margin-bottom: 10px">
             <tr>
                 <th>No</th>
-		<th>Id Kategori</th>
+		<th>Kategori</th>
 		<th>Nama Pemilihan</th>
 		<th>Jumlah Pemilihan</th>
 		<th>Kontak Panitia</th>
 		<th>Penyelenggara</th>
 		<th>Lokasi</th>
 		<th>Kecamatan</th>
-		<th>Kelurahan</th>
+		<th>Kab / Kota</th>
 		<th>Start Date</th>
-		<th>End Date</th>
+        <th>End Date</th>
+        <th>User Panitia</th>
+		<th>Status</th>
 		<th>Action</th>
             </tr><?php
             foreach ($pemilihan_data as $pemilihan)
@@ -49,7 +51,7 @@
                 ?>
                 <tr>
 			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $pemilihan->id_kategori ?></td>
+			<td><?php echo get_data('kategori','id_kategori',$pemilihan->id_kategori,'kategori') ?></td>
 			<td><?php echo $pemilihan->nama_pemilihan ?></td>
 			<td><?php echo $pemilihan->jumlah_pemilihan ?></td>
 			<td><?php echo $pemilihan->kontak_panitia ?></td>
@@ -58,7 +60,17 @@
 			<td><?php echo $pemilihan->kecamatan ?></td>
 			<td><?php echo $pemilihan->kelurahan ?></td>
 			<td><?php echo $pemilihan->start_date ?></td>
-			<td><?php echo $pemilihan->end_date ?></td>
+            <td><?php echo $pemilihan->end_date ?></td>
+            <td><?php echo get_data('admin','id_user',$pemilihan->id_user,'nama') ?></td>
+			<td><?php 
+            if ($pemilihan->status == 1) {
+                echo '<span class="label label-success">Aktif</span>';
+            } elseif ($pemilihan->status == 2) {
+                echo '<span class="label label-info">Arsip</span>';
+            } elseif ($pemilihan->status == 3) {
+                echo '<span class="label label-warning">Draft</span>';
+            }
+             ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
 				echo anchor(site_url('pemilihan/update/'.$pemilihan->id_pemilihan),'<span class="label label-info">Ubah</span>'); 

@@ -1,7 +1,7 @@
 <div id="page">
         <div class="header header-fixed header-logo-app">
-            <a href="index.html" class="header-title ultrabold"
-                style="margin-left: 15px!important;font-size: 18px;"><span class="color-highlight">SIS</span>PANLIH</a>
+            <a href="app" class="header-title ultrabold"
+                style="margin-left: 15px!important;font-size: 18px;"><span class="color-highlight">SIS</span>{{dg}}</a>
             <a href="#" class="header-icon header-icon-2" data-toggle-theme><i class="fas fa-moon"></i></a>
         </div>
 
@@ -44,7 +44,7 @@
         </div>
 
         <!-- Menu Pemilihan Admin AKTIF -->
-        <div id="menu-pemilihan-admin-aktif" class="menu menu-box-modal data-menu-height="320" data-menu-width="310"
+        <div id="menu-pemilihan-admin-aktif" class="menu menu-box-modal" data-menu-height="320" data-menu-width="310"
             data-menu-effect="menu-over">
             <h5 class="center-text top-10">Pemilihan Ketua OSIS SMP Muhammadiyah Puraseda</h5>
             <div class="divider-small"></div>
@@ -95,7 +95,7 @@
         </div>
 
         <!-- Menu Pemilihan Admin DRAFT -->
-        <div id="menu-pemilihan-admin-draft" class="menu menu-box-modal data-menu-height=" 320" data-menu-width="310"
+        <div id="menu-pemilihan-admin-draft" class="menu menu-box-modal" data-menu-height=" 320" data-menu-width="310"
             data-menu-effect="menu-over">
             <h5 class="center-text top-10">Pemilihan Ketua OSIS SMP Muhammadiyah Puraseda</h5>
             <div class="divider-small"></div>
@@ -146,7 +146,7 @@
         </div>
 
         <!-- Menu Pemilihan Admin ARSIP -->
-        <div id="menu-pemilihan-admin-arsip" class="menu menu-box-modal data-menu-height=" 320" data-menu-width="310"
+        <div id="menu-pemilihan-admin-arsip" class="menu menu-box-modal" data-menu-height=" 320" data-menu-width="310"
             data-menu-effect="menu-over">
             <h5 class="center-text top-10">Pemilihan Ketua OSIS SMP Muhammadiyah Puraseda</h5>
             <div class="divider-small"></div>
@@ -194,3 +194,14 @@
 
         <div class="menu-hider"></div>
     </div>
+
+    <script type="text/javascript">
+        var vm = new Vue({
+        
+            el: "#page",
+            data: {
+                'dg':'hALLO'
+            }
+        
+        })
+    </script>

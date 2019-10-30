@@ -42,11 +42,31 @@
         </div>
 	    <div class="form-group">
             <label for="datetime">Start Date <?php echo form_error('start_date') ?></label>
-            <input type="datetime" class="form-control" name="start_date" id="start_date" placeholder="Start Date" value="<?php echo $start_date; ?>" />
+            <input type="datetime" class="form-control" name="start_date" id="start_date" placeholder="2019-10-10 10:10" value="<?php echo $start_date; ?>" />
         </div>
 	    <div class="form-group">
             <label for="datetime">End Date <?php echo form_error('end_date') ?></label>
-            <input type="datetime" class="form-control" name="end_date" id="end_date" placeholder="End Date" value="<?php echo $end_date; ?>" />
+            <input type="datetime" class="form-control" name="end_date" id="end_date" placeholder="2019-10-10 10:10" value="<?php echo $end_date; ?>" />
+        </div>
+        <div class="form-group">
+            <label>User Panitia</label>
+            <select name="id_user" class="form-control">
+                <option value="<?php echo $id_user ?>"><?php echo $id_user ?></option>
+                <?php 
+                foreach ($this->db->get_where('admin',array('akses'=>'panitia'))->result() as $rw) {
+                 ?>
+                <option value="<?php echo $rw->id_user ?>"><?php echo $rw->nama ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Status</label>
+            <select name="status" class="form-control">
+                <option value="<?php echo $status ?>"><?php echo $status ?></option>
+                <option value="1">aktif</option>
+                <option value="2">arsip</option>
+                <option value="3">draft</option>
+            </select>
         </div>
 	    <input type="hidden" name="id_pemilihan" value="<?php echo $id_pemilihan; ?>" /> 
 	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 
