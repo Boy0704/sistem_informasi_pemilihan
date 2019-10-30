@@ -5,6 +5,7 @@ if (!defined('BASEPATH'))
 
 class Calon extends CI_Controller
 {
+    public $image = '';
     function __construct()
     {
         parent::__construct();
@@ -56,6 +57,8 @@ class Calon extends CI_Controller
 		'visi' => $row->visi,
 		'misi' => $row->misi,
 		'foto' => $row->foto,
+		'program_lain' => $row->program_lain,
+		'id_pemilihan' => $row->id_pemilihan,
 	    );
             $this->load->view('calon/calon_read', $data);
         } else {
@@ -77,6 +80,8 @@ class Calon extends CI_Controller
 	    'visi' => set_value('visi'),
 	    'misi' => set_value('misi'),
 	    'foto' => set_value('foto'),
+	    'program_lain' => set_value('program_lain'),
+	    'id_pemilihan' => set_value('id_pemilihan'),
 	);
         $this->load->view('v_index', $data);
     }
@@ -88,13 +93,33 @@ class Calon extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
+
+            $config['upload_path'] = './front/images/calon/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size']  = '100';
+            $config['max_width']  = '1024';
+            $config['max_height']  = '768';
+            $config['file_name']  = time();
+            
+            $this->load->library('upload', $config);
+            
+            if ( ! $this->upload->do_upload('foto')){
+                echo $this->upload->display_errors();
+            }
+            else{
+                $this->image = $this->upload->data('file_name');
+            }
+
             $data = array(
 		'no_calon' => $this->input->post('no_calon',TRUE),
 		'nama_calon' => $this->input->post('nama_calon',TRUE),
 		'visi' => $this->input->post('visi',TRUE),
 		'misi' => $this->input->post('misi',TRUE),
-		'foto' => $this->input->post('foto',TRUE),
+		'foto' => $this->image,
+		'program_lain' => $this->input->post('program_lain',TRUE),
+		'id_pemilihan' => $this->input->post('id_pemilihan',TRUE),
 	    );
+
 
             $this->Calon_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
@@ -118,6 +143,8 @@ class Calon extends CI_Controller
 		'visi' => set_value('visi', $row->visi),
 		'misi' => set_value('misi', $row->misi),
 		'foto' => set_value('foto', $row->foto),
+		'program_lain' => set_value('program_lain', $row->program_lain),
+		'id_pemilihan' => set_value('id_pemilihan', $row->id_pemilihan),
 	    );
             $this->load->view('v_index', $data);
         } else {
@@ -133,12 +160,40 @@ class Calon extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id_calon', TRUE));
         } else {
+
+            
+
+            if (($_FILES["foto"]["name"]) !== '') {
+                // print_r($_FILES);exit();
+                $config['upload_path'] = './front/images/calon/';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size']  = '10000';
+                $config['max_width']  = '1024';
+                $config['max_height']  = '768';
+                $config['file_name']  = time();
+                
+                $this->load->library('upload', $config);
+                
+                if ( ! $this->upload->do_upload('foto')){
+                    echo $this->upload->display_errors();
+                }
+                else{
+                    $this->image = $this->upload->data('file_name');
+                }
+            } else {
+                $this->image = $this->input->post('old_image');
+            }
+
+            // print_r($_FILES);exit();
+
             $data = array(
 		'no_calon' => $this->input->post('no_calon',TRUE),
 		'nama_calon' => $this->input->post('nama_calon',TRUE),
 		'visi' => $this->input->post('visi',TRUE),
 		'misi' => $this->input->post('misi',TRUE),
-		'foto' => $this->input->post('foto',TRUE),
+		'foto' => $this->image,
+		'program_lain' => $this->input->post('program_lain',TRUE),
+		'id_pemilihan' => $this->input->post('id_pemilihan',TRUE),
 	    );
 
             $this->Calon_model->update($this->input->post('id_calon', TRUE), $data);
@@ -167,7 +222,9 @@ class Calon extends CI_Controller
 	$this->form_validation->set_rules('nama_calon', 'nama calon', 'trim|required');
 	$this->form_validation->set_rules('visi', 'visi', 'trim|required');
 	$this->form_validation->set_rules('misi', 'misi', 'trim|required');
-	$this->form_validation->set_rules('foto', 'foto', 'trim|required');
+	// $this->form_validation->set_rules('foto', 'foto', 'trim|required');
+	$this->form_validation->set_rules('program_lain', 'program lain', 'trim|required');
+	$this->form_validation->set_rules('id_pemilihan', 'id pemilihan', 'trim|required');
 
 	$this->form_validation->set_rules('id_calon', 'id_calon', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
@@ -178,5 +235,5 @@ class Calon extends CI_Controller
 /* End of file Calon.php */
 /* Location: ./application/controllers/Calon.php */
 /* Please DO NOT modify this information : */
-/* Generated by Boy Kurniawan 2019-10-25 16:21:58 */
+/* Generated by Boy Kurniawan 2019-10-30 16:26:20 */
 /* https://jualkoding.com */

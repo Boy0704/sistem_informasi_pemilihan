@@ -37,6 +37,8 @@
 		<th>Visi</th>
 		<th>Misi</th>
 		<th>Foto</th>
+		<th>Program Lain</th>
+		<th>Pemilihan</th>
 		<th>Action</th>
             </tr><?php
             foreach ($calon_data as $calon)
@@ -48,7 +50,9 @@
 			<td><?php echo $calon->nama_calon ?></td>
 			<td><?php echo $calon->visi ?></td>
 			<td><?php echo $calon->misi ?></td>
-			<td><?php echo $calon->foto ?></td>
+			<td><img src="front/images/calon/<?php echo $calon->foto ?>" style="width: 100px;height: 100px;"></td>
+			<td><?php echo $calon->program_lain ?></td>
+			<td><?php echo get_data('pemilihan','id_pemilihan',$calon->id_pemilihan,'nama_pemilihan') ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
 				echo anchor(site_url('calon/update/'.$calon->id_calon),'<span class="label label-info">Ubah</span>'); 
