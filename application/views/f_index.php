@@ -18,21 +18,25 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    
 </head>
 
 <body class="theme-light" data-highlight="blue2">
 
-    <!-- <div id="page-preloader">
+    <div id="page-preloader">
         <div class="loader-main">
             <div class="preload-spinner border-highlight"></div>
         </div>
     </div>
- -->
+
 
     <?php $this->load->view($konten); ?>
+
+    
+</body>
 
     <script type="text/javascript"><?php echo $this->session->userdata('message') ?></script>
     <script type="text/javascript" src="front/scripts/jquery.js"></script>
     <script type="text/javascript" src="front/scripts/plugins.js" ></script>
     <script type="text/javascript" src="front/scripts/custom.js" ></script>
-</body>
+</html>

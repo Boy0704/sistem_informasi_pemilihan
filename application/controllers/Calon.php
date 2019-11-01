@@ -201,6 +201,8 @@ class Calon extends CI_Controller
             redirect(site_url('calon'));
         }
     }
+
+    
     
     public function delete($id) 
     {

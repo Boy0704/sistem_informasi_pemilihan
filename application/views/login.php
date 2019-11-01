@@ -61,9 +61,9 @@
                             <form action="app/aksi_login" method="post">
                             <div class="input-style input-light has-icon input-style-1 input-required">
                                 <i class="input-icon fa fa-user font-11"></i>
-                                <span>username</span>
+                                <span>Email</span>
                                 <em>(wajib terisi)</em>
-                                <input type="text" name="username" placeholder="Username" autocomplete="off">
+                                <input type="text" name="email" placeholder="Email" autocomplete="off">
                             </div>
                             <div class="input-style input-light has-icon input-style-1 input-required bottom-30">
                                 <i class="input-icon fa fa-lock font-11"></i>
@@ -72,10 +72,10 @@
                                 <input type="password" name="password" placeholder="Kata Sandi" autocomplete="off">
                             </div>
                             <div class="one-half">
-                                <a href="daftar-akun.html" class="font-11 color-white opacity-50">Daftar</a>
+                                <a href="app/daftar_panitia" class="font-11 color-white opacity-50">Daftar</a>
                             </div>
                             <div class="one-half last-column">
-                                <a href="lupa-sandi.html" class="text-right font-11 color-white opacity-50">Lupa kata
+                                <a href="" class="text-right font-11 color-white opacity-50">Lupa kata
                                     sandi</a>
                             </div>
                             <div class="clear"></div>

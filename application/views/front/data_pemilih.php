@@ -61,7 +61,7 @@
                             <td style="display: flex">
                                 <a href="#" data-menu="menu-data-pemilih">
                                     <i class="fa fa-edit color-green2-dark" style="margin: 2px;"></i></a>
-                                <a href="#" data-menu="menu-hapus-pemilih">
+                                <a href="#" @click="hapus_pemilih('<?php echo $row->id_pemilih ?>')" data-menu="menu-hapus-pemilih">
                                     <i class="fa fa-trash-alt color-orange-dark" style="margin: 2px;">
                                     </i>
                                 </a></td>
@@ -128,8 +128,8 @@
             </p>
             <div class="content left-50 right-50">
                 <div class="one-half">
-                    <a href="#"
-                        class="close-menu button button-center-large button-s shadow-large button-round-small bg-red2-dark">Ya</a>
+                    <a :href="hapus"
+                        class="button button-center-large button-s shadow-large button-round-small bg-red2-dark">Ya</a>
                 </div>
                 <div class="one-half last-column">
                     <a href="#"
@@ -148,8 +148,8 @@
             </p>
             <div class="content left-50 right-50">
                 <div class="one-half">
-                    <a href="#"
-                        class="close-menu button button-center-large button-s shadow-large button-round-small bg-red2-dark">Ya</a>
+                    <a href="app/hapus_all_pemilih"
+                        class="button button-center-large button-s shadow-large button-round-small bg-red2-dark">Ya</a>
                 </div>
                 <div class="one-half last-column">
                     <a href="#"
@@ -204,3 +204,33 @@
 
 
     <div class="menu-hider"></div>
+
+<script type="text/javascript">
+    var vm = new Vue({
+    el: "#page",
+    data : {
+        type_input : '',
+        hapus : '#',
+        data_pemilih: [],
+    },
+    computed:{
+        
+    }, 
+    watch: {
+        
+    },
+    methods:{
+        edit_pemilih: function(id_pemilih) {
+            axios
+              .get('<?php echo base_url() ?>app/get_pemilih/'+id_pemilih)
+              .then(response => (
+                this.data_pemilih = response.data.pemilih
+                ))
+            this.type_input = 'edit'
+        },
+        hapus_pemilih: function(id_pemilih) {
+            this.hapus = 'app/hapus_pemilih/'+id_pemilih
+        }
+    }
+})
+</script>

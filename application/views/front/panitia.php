@@ -1,7 +1,7 @@
 <div id="page">
         <div class="header header-fixed header-logo-app">
             <a href="app" class="header-title ultrabold"
-                style="margin-left: 15px!important;font-size: 18px;"><span class="color-highlight">SIS</span>{{dg}}</a>
+                style="margin-left: 15px!important;font-size: 18px;"><span class="color-highlight">SIS</span>PANLIH</a>
             <a href="#" class="header-icon header-icon-2" data-toggle-theme><i class="fas fa-moon"></i></a>
         </div>
 
@@ -14,18 +14,31 @@
                 <a href="app/profil-admin.html"><img class="preload-image horizontal-center" width="80" src="front/images/empty.png"
                     data-src="front/images/preload-logo.png" alt="img"></a>
                 <h1 class="bolder font-15 center-text top-5"><?php echo $this->session->userdata('nama'); ?></h1>
-                <p class="under-heading center-text color-highlight bottom-10">Leuwiliang - Kabupaten Bogor</p>
+                <!-- <p class="under-heading center-text color-highlight bottom-10">Leuwiliang - Kabupaten Bogor</p> -->
             </div>
 
             <div class="divider divider-margins bottom-15"></div>
 
             <div class="content top-15">
                 <?php 
-                foreach ($this->db->get('pemilihan')->result() as $row) {
-                
+                foreach ($this->db->get_where('pemilihan',array('id_user'=>$this->session->userdata('id_user')))->result() as $row) {
+                   
+                        $s_class = ''; 
+                        $status = ''; 
+                        if ($row->status == 1) {
+                            $s_class = 'bg-aktif2';
+                            $status = 'aktif';
+                        } elseif ($row->status == 2) {
+                            $s_class = 'bg-arsip';
+                            $status = 'arsip';
+                        } elseif ($row->status == 3) {
+                            $s_class = 'bg-draft';
+                            $status = 'draft';
+                        } 
+                        
                  ?>
                 <div class="sisp-list-item bottom-10">
-                    <a href="#" data-menu="menu-pemilihan-admin-aktif">
+                    <a href="#" @click="infoModal('<?php echo $row->id_pemilihan ?>','<?php echo $row->nama_pemilihan ?>','<?php echo $status ?>')" data-menu="menu-pemilihan-admin-<?php echo $status ?>">
                         <img class="preload-image shadow-small round-small" src="front/images/empty.png"
                             data-src="front/images/pictures/5s.jpg" alt="img">
                         <strong>
@@ -33,7 +46,8 @@
                         </strong>
                     </a>
                     <span>
-                        <a href="#" class="bg-aktif2">Aktif</a>
+                        
+                        <a href="#" class="<?php echo $s_class ?>"><?php echo $status ?></a>
                         <i class="fas fa-map-marked-alt"></i><?php echo $row->kelurahan ?>
                     </span>
                 </div>
@@ -46,46 +60,46 @@
         <!-- Menu Pemilihan Admin AKTIF -->
         <div id="menu-pemilihan-admin-aktif" class="menu menu-box-modal" data-menu-height="320" data-menu-width="310"
             data-menu-effect="menu-over">
-            <h5 class="center-text top-10">Pemilihan Ketua OSIS SMP Muhammadiyah Puraseda</h5>
+            <h5 class="center-text top-10">{{judul}}</h5>
             <div class="divider-small"></div>
             <div class="link-list link-list-1 content bottom-0">
-                <a href="info-pemilihan.html" class="">
+                <a :href="link1" class="">
                     <i class="fas fa-info-circle fa-lg"></i>
                     <span class="font-13">
                         Informasi</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="data-pemilihan.html" class="">
+                <a :href="link2" class="">
                     <i class="fas fa-edit fa-lg" style="color:green"></i>
                     <span class="font-13">
                         Edit Data</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="#" class="">
+                <a :href="link3" class="">
                     <i class="fas fa-file-pdf fa-lg" style="color:green"></i>
                     <span class="font-13">
                         Download PDF Kartu Akun</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="lihat-hasil.html" class="">
+                <a :href="link4" class="">
                     <i class="fas fa-poll fa-lg" style="color:green"></i>
                     <span class="font-13">
                         Lihat Hasil Pemilihan</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="status-pemilih.html" class="">
+                <a :href="link5" class="">
                     <i class="fas fa-user-check fa-lg" style="color:green"></i>
                     <span class="font-13">
                         Lihat Status Pemilih</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="#" class="" data-menu="menu-reset-pemilihan">
+                <a :href="link6" class="" data-menu="menu-reset-pemilihan">
                     <i class="fas fa-redo fa-lg" style="color:red"></i>
                     <span class="font-13">
                         Reset Pemilihan</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="#" class="">
+                <a :href="link7" class="">
                     <i class="fas fa-lock fa-lg" style="color:black"></i>
                     <span class="font-13">
                         Tutup Pemilihan</span>
@@ -97,46 +111,46 @@
         <!-- Menu Pemilihan Admin DRAFT -->
         <div id="menu-pemilihan-admin-draft" class="menu menu-box-modal" data-menu-height=" 320" data-menu-width="310"
             data-menu-effect="menu-over">
-            <h5 class="center-text top-10">Pemilihan Ketua OSIS SMP Muhammadiyah Puraseda</h5>
+            <h5 class="center-text top-10">{{judul}}</h5>
             <div class="divider-small"></div>
             <div class="link-list link-list-1 content bottom-0">
-                <a href="info-pemilihan.html" class="">
+                <a :href="link1" class="">
                     <i class="fas fa-info-circle fa-lg"></i>
                     <span class="font-13">
                         Informasi</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="data-pemilihan.html" class="">
+                <a :href="link2" class="">
                     <i class="fas fa-edit fa-lg" style="color:gray"></i>
                     <span class="font-13">
                         Edit Data</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="#" class="">
+                <a :href="link3" class="">
                     <i class="fas fa-file-pdf fa-lg" style="color:gray"></i>
                     <span class="font-13">
                         Download PDF Kartu Akun</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="lihat-hasil.html" class="">
+                <a :href="link4" class="">
                     <i class="fas fa-poll fa-lg" style="color:gray"></i>
                     <span class="font-13">
                         Lihat Hasil Pemilihan</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="status-pemilih.html" class="">
+                <a :href="link5" class="">
                     <i class="fas fa-user-check fa-lg" style="color:gray"></i>
                     <span class="font-13">
                         Lihat Status Pemilih</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="#" class="" data-menu="menu-reset-pemilihan">
+                <a :href="link6" class="" data-menu="menu-reset-pemilihan">
                         <i class="fas fa-redo fa-lg" style="color:red"></i>
                         <span class="font-13">
                             Reset Pemilihan</span>
                         <i class="fa fa-angle-right"></i>
                     </a>
-                <a href="#" class="">
+                <a :href="link7" class="">
                     <i class="fas fa-toggle-on fa-lg" style="color:green"></i>
                     <span class="font-13">
                         Aktifkan Pemilihan</span>
@@ -195,13 +209,45 @@
         <div class="menu-hider"></div>
     </div>
 
-    <script type="text/javascript">
-        var vm = new Vue({
+<script type="text/javascript">
+var vm = new Vue({
+el: "#page",
+data : {
+    judul : '',
+    link1 : '',
+    link2 : '',
+    link3 : '',
+    link4 : '',
+    link5 : '',
+    link6 : '',
+    link7 : '',
+},
+computed:{
+    
+}, 
+methods:{
+    infoModal: function(id_p,judul,status) {
         
-            el: "#page",
-            data: {
-                'dg':'hALLO'
-            }
-        
-        })
-    </script>
+        if (status == 'aktif') {
+            this.judul = judul
+            this.link1 = 'app/info_pemilihan/'+id_p
+            this.link2 = 'app/edit_pemilihan/'+id_p
+            this.link3 = 'app/download_pdf_kartu/'+id_p
+            this.link4 = 'app/lihat_hasil/'+id_p
+            this.link5 = 'app/lihat_status_pemilih/'+id_p
+            this.link6 = 'app/reset_pemilihan/'+id_p
+            this.link7 = 'app/tutup_pemilihan/'+id_p
+        } else if(status == 'draft') {
+            this.judul = judul
+            this.link1 = 'app/info_pemilihan/'+id_p
+            this.link2 = 'app/edit_pemilihan/'+id_p
+            this.link3 = 'app/download_pdf_kartu/'+id_p
+            this.link4 = 'app/lihat_hasil/'+id_p
+            this.link5 = 'app/lihat_status_pemilih/'+id_p
+            this.link6 = 'app/reset_pemilihan/'+id_p
+            this.link7 = 'app/aktifkan_pemilihan/'+id_p
+        }
+    }
+}
+})
+</script>

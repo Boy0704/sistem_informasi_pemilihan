@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class App extends CI_Controller {
 
+	public $image = '';
 	
 	public function index()
 	{
@@ -54,9 +55,9 @@ class App extends CI_Controller {
 
     public function info_pemilihan($id_pemilihan)
 	{
-        if ($this->session->userdata('username') == '') {
-            redirect('app/login','refresh');
-        }
+        // if ($this->session->userdata('username') == '') {
+        //     redirect('app/login','refresh');
+        // }
 		$data = array(
 			'konten' => 'front/info_pemilihan',
             'judul_page' => 'Info Pemilihan',
@@ -67,9 +68,9 @@ class App extends CI_Controller {
 
     public function lihat_hasil($id_pemilihan)
 	{
-        if ($this->session->userdata('username') == '') {
-            redirect('app/login','refresh');
-        }
+        // if ($this->session->userdata('username') == '') {
+        //     redirect('app/login','refresh');
+        // }
 		$data = array(
 			'konten' => 'front/lihat_hasil',
             'judul_page' => 'Lihat Hasil Pemilihan',
@@ -93,9 +94,9 @@ class App extends CI_Controller {
 
     public function data_pemilihan()
     {
-    	if ($this->session->userdata('username') == '') {
-            redirect('app/login','refresh');
-        }
+    	// if ($this->session->userdata('username') == '') {
+     //        redirect('app/login','refresh');
+     //    }
 
 		if ($_POST == NULL) {
 			$data = array(
@@ -107,7 +108,7 @@ class App extends CI_Controller {
 			$_POST['id_user'] = $this->session->userdata('id_user');
 			$this->db->insert('pemilihan', $_POST);
 			$insert_id = $this->db->insert_id();
-			$this->session->set_flashdata('message', alert_biasa('Berhasil Simpan Data!','success'));
+			$this->session->set_flashdata('message', alert_biasa('Berhasil Simpan Data\n Lanjutkan Isi data calon klik tombol di bawah!','success'));
 			$this->session->set_flashdata('id_pemilihan', $insert_id);
 			redirect('app/data_pemilihan','refresh');
 		}
@@ -123,13 +124,80 @@ class App extends CI_Controller {
 			$data = array(
 				'konten' => 'front/data_calon',
 	            'judul_page' => 'Data Calon',
+	            'id' => $id
 			);
 			$this->load->view('f_index', $data);
 		} else {
-			$this->db->insert('calon', $_POST);
-			$this->session->set_flashdata('message', alert_biasa('Berhasil Simpan Data!','success'));
-			redirect('app/data_calon/'.$id);
+
+			if ($_POST['type_input'] == 'tambah') {
+				
+				unset($_POST['type_input']);
+				$config['upload_path'] = './front/images/calon/';
+	            $config['allowed_types'] = 'gif|jpg|png';
+	            $config['max_size']  = '10000';
+	            $config['file_name']  = time();
+	            
+	            $this->load->library('upload', $config);
+	            
+	            if ( ! $this->upload->do_upload('foto')){
+	                echo $this->upload->display_errors();
+	            }
+	            else{
+	                $this->image = $this->upload->data('file_name');
+	            }
+
+				$_POST['foto'] = $this->image;
+				$this->db->insert('calon', $_POST);
+				$this->session->set_flashdata('message', alert_biasa('Berhasil Simpan Data!','success'));
+				redirect('app/data_calon/'.$id);
+			} elseif($_POST['type_input'] == 'edit') {
+				
+				unset($_POST['type_input']);
+				if (($_FILES["foto"]["name"]) !== '') {
+	                // print_r($_FILES);exit();
+	                $config['upload_path'] = './front/images/calon/';
+	                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+	                $config['max_size']  = '10000';
+	                $config['file_name']  = time();
+	                
+	                $this->load->library('upload', $config);
+	                
+	                if ( ! $this->upload->do_upload('foto')){
+	                    echo $this->upload->display_errors();
+	                }
+	                else{
+	                    $this->image = $this->upload->data('file_name');
+	                }
+	                // exit;
+	            } else {
+	                $this->image = $this->input->post('old_foto');
+	            }
+
+				$_POST['foto'] = $this->image;
+				unset($_POST['old_foto']);
+				$this->db->where('id_calon', $_POST['id_calon']);
+				$this->db->update('calon', $_POST);
+				$this->session->set_flashdata('message', alert_biasa('Berhasil Ubah Data!','success'));
+				redirect('app/data_calon/'.$id);
+			}
+
+			
 		}
+    }
+
+    public function get_calon($id_calon)
+    {
+        $query = $this->db->get_where('calon', array('id_calon'=>$id_calon))->row();
+        $result['calon'] = $query;
+        echo json_encode($result);
+    }
+
+    public function hapus_calon($id_calon,$id_pemilihan)
+    {
+    	$this->db->where('id_calon', $id_calon);
+    	$this->db->delete('calon');
+    	$this->session->set_flashdata('message', alert_biasa('Berhasil Hapus Data!','success'));
+		redirect('app/data_calon/'.$id_pemilihan);
     }
 
     public function data_pemilih()
@@ -151,10 +219,70 @@ class App extends CI_Controller {
 		}
     }
 
-    
-	
-	
+    public function hapus_pemilih($id_pemilih)
+    {
+    	$this->db->where('id_pemilih', $id_pemilih);
+    	$this->db->delete('pemilih');
+    	$this->session->set_flashdata('message', alert_biasa('Berhasil Hapus Data!','success'));
+		redirect('app/data_pemilih');
+    }
 
+    public function hapus_all_pemilih()
+    {
+    	$this->db->query("DELETE FROM pemilih");
+    	$this->session->set_flashdata('message', alert_biasa('Berhasil Hapus Semua Data!','success'));
+		redirect('app/data_pemilih');
+    }
+
+    public function profil_admin()
+    {
+    	if ($_POST == NULL) {
+    		$data = array(
+				'konten' => 'front/profil',
+	            'judul_page' => 'Data Profil',
+	            'dt' => $this->db->get_where('admin', array('id_user'=>$this->session->userdata('id_user')))
+			);
+			$this->load->view('f_index', $data);
+    	} else {
+    		if ($_POST['password'] == '') {
+    			unset($_POST['password']);
+    		} else {
+    			$_POST['password'] = md5($_POST['password']);
+    		}
+    		$this->db->where('id_user', $this->session->userdata('id_user'));
+    		$this->db->update('admin', $_POST);
+    		$this->session->set_flashdata('message', alert_biasa('Berhasil ubah profil!','success'));
+			redirect('app/panitia');
+    	}
+    }
+
+    public function daftar_panitia()
+    {
+    	if ($_POST == NULL) {
+    		$data = array(
+				'konten' => 'front/daftar_panitia',
+	            'judul_page' => 'Daftar Panitia',
+			);
+			$this->load->view('f_index', $data);
+    	} else {
+    		if ($_POST['password1'] == $_POST['password2']) {
+    			unset($_POST['password2']);
+    			$_POST['username'] = strtolower(str_replace(' ', '', $_POST['nama']));
+    			$_POST['password'] = md5($_POST['password1']);
+    			unset($_POST['password1']);
+    			$_POST['akses'] = 'panitia';
+    			$_POST['status'] = 1;
+    			$this->db->insert('admin', $_POST);
+    			$this->session->set_flashdata('message', alert_biasa('Pendaftaran Panitia berhasil\n silahkan Login!','success'));
+				redirect('app/login','refresh');
+    		} else {
+    			$this->session->set_flashdata('message', alert_biasa('Kata sandi tidak sama!','warning'));
+				redirect('app/daftar_panitia','refresh');
+    		}
+    	}
+    }
+
+    
 	public function login() 
 	{
 		$this->load->view('login');
@@ -162,11 +290,11 @@ class App extends CI_Controller {
 
 	public function aksi_login()
 	{
-		$username = $this->input->post('username');
+		$email = $this->input->post('email');
 			$password = md5($this->input->post('password'));
 
 			// $hashed = '$2y$10$LO9IzV0KAbocIBLQdgy.oeNDFSpRidTCjXSQPK45ZLI9890g242SG';
-			$cek_user = $this->db->query("SELECT * FROM admin WHERE username='$username' and password='$password' ");
+			$cek_user = $this->db->query("SELECT * FROM admin WHERE email='$email' and password='$password' ");
 			// if (password_verify($password, $hashed)) {
 			if ($cek_user->num_rows() > 0) {
 				foreach ($cek_user->result() as $row) {
@@ -189,7 +317,7 @@ class App extends CI_Controller {
 
 				// redirect('app/index');
 			} else {
-				$this->session->set_flashdata('message', alert_biasa('Gagal Login!\n username atau password kamu salah','warning'));
+				$this->session->set_flashdata('message', alert_biasa('Gagal Login!\n email atau password kamu salah','warning'));
 				redirect('app/login','refresh');
 			}
 	}

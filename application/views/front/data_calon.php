@@ -10,28 +10,28 @@
                 <link rel="stylesheet" type="text/css" href="front/styles/sisp.css">
                 <div class="content top-20">
                     <?php 
-                    foreach ($this->db->get('calon')->result() as $row) {
+                    foreach ($this->db->get_where('calon', array('id_pemilihan'=>$id))->result() as $row) {
                      ?>
                     <div class="sisp-list-item">
                         <a href="#">
-                            <img class="preload-image shadow-large round-small" src="front/images/empty.png"
-                                data-src="front/images/pictures/8s.jpg" alt="img">
+                            <img class="preload-image shadow-large round-small" src="front/images/calon/<?php echo $row->foto ?>"
+                                data-src="front/images/calon/<?php echo $row->foto ?>" alt="img">
                             <strong style="font-weight: 300">Nomor Calon: <?php echo $row->no_calon ?></strong>
                         </a>
                         <a href="#">
                             <strong2 class="color-theme"><?php echo $row->nama_calon ?></strong2>
                         </a>
-                        <a href="#" class="button button-xxs shadow-small button-round-small bg-red2-dark" style="float: right;
+                        <a href="#" @click="hapus_calon('<?php echo $row->id_calon ?>','<?php echo $row->id_pemilihan ?>')" class="button button-xxs shadow-small button-round-small bg-red2-dark" style="float: right;
                         padding: 0px 5px;margin-top: 5px;margin-left: 4px" data-menu="menu-hapus-calon"><i
                                 class="fa fa-trash-alt color-white-dark"></i></a>
-                        <a href="app/edit_calon/<?php echo $row->id_calon ?>" class="button button-xxs shadow-small button-round-small bg-blue1-dark" style="float: right;
+                        <a href="#" @click="edit_calon(<?php echo $row->id_calon ?>)" class="button button-xxs shadow-small button-round-small bg-blue1-dark" style="float: right;
                         padding: 0px 5px;margin-top: 5px;" data-menu="menu-data-calon">Edit Data</a>
                     </div>
                     <?php } ?>
 
                     <!-- Tombol Simpan -->
                     <div class="one-half top-20 bottom-10" style="text-align: center">
-                        <a href="#" class="button button-s shadow-small bg-green1-dark" data-menu="menu-data-calon">+
+                        <a href="#" @click="type_input='tambah'" class="button button-s shadow-small bg-green1-dark" data-menu="menu-data-calon">+
                             Tambah</a>
                     </div>
 
@@ -45,47 +45,66 @@
             <!-- Menu Tambah / Edit Calon -->
             <div id="menu-data-calon" class="menu menu-box-bottom" data-menu-height="390" data-menu-effect="menu-over">
                 <div class="content">
-                    <h3 class="uppercase ultrabold top-20">Data Calon</h3>
+                    <h3 class="uppercase ultrabold top-20">{{type_input}} Data Calon</h3>
                     <p class="font-11 under-heading bottom-20">
                         Isi data calon sesuai urutan.
                     </p>
-                    <div>
-                        <img class="preload-image horizontal-center" width="80" src="front/images/preload-logo.png"
-                            data-src="front/images/preload-logo.png" alt="img"
+                    <div v-if="type_input === 'tambah'">
+                        <img class="preload-image horizontal-center" width="80" :src="foto"
+                            :data-src="foto" alt="img"
                             style="border: dashed; border-width: thin; color: darkgrey; padding: 5px;">
                     </div>
-                    <form action="" method="post">
+                    <div v-else-if="type_input === 'edit'">
+                        <img class="preload-image horizontal-center" width="80" :src="foto_calon(data_calon.foto)"
+                            :data-src="foto_calon(data_calon.foto)" alt="img"
+                            style="border: dashed; border-width: thin; color: darkgrey; padding: 5px;">
+                    </div>
+                    <form action="" method="post" enctype="multipart/form-data">
+                    <div v-if="type_input === 'tambah'">
+                      <input type="hidden" name="type_input" value="tambah">
+                    </div>
+                    <div v-else-if="type_input === 'edit'">
+                      <input type="hidden" name="type_input" value="edit">
+                      <input type="hidden" name="old_foto" :value="data_calon.foto">
+                      <input type="hidden" name="id_calon" :value="data_calon.id_calon">
+                    </div>
+                    <div class="input-style has-icon input-style-1 input-required">
+                        <i class="input-icon fa fa-sort-numeric-down font-11"></i>
+                        <span>Upload Foto</span>
+                        <em>(wajib)</em>
+                        <input type="file" name="foto" placeholder="Nomor Calon">
+                    </div>
                     <div class="input-style has-icon input-style-1 input-required">
                         <i class="input-icon fa fa-sort-numeric-down font-11"></i>
                         <span>Nomor Calon (co: 01 atau 001, AB, dll)</span>
                         <em>(wajib)</em>
-                        <input type="name" name="no_calon" placeholder="Nomor Calon">
+                        <input type="name" name="no_calon" placeholder="Nomor Calon" :value="data_calon.no_calon">
                     </div>
                     <div class="input-style has-icon input-style-1 input-required">
                         <i class="input-icon fa fa-id-card font-11"></i>
                         <span>Nama Lengkap Calon</span>
                         <em>(wajib)</em>
-                        <input type="name" name="nama_calon" placeholder="Nama Calon">
+                        <input type="name" name="nama_calon" placeholder="Nama Calon" :value="data_calon.nama_calon">
                     </div>
                     <div class="input-style input-style-1 input-required">
                         <span class="input-style-1-inactive">Visi</span>
                         <em>(required)</em>
-                        <textarea placeholder="Visi" name="visi"></textarea>
+                        <textarea placeholder="Visi" name="visi">{{data_calon.visi}}</textarea>
                     </div>
                     <div class="input-style input-style-1 input-required">
                         <span class="input-style-1-inactive">Misi</span>
                         <em>(required)</em>
-                        <textarea placeholder="Misi" name="misi"></textarea>
+                        <textarea placeholder="Misi" name="misi">{{data_calon.misi}}</textarea>
                     </div>
                     <div class="input-style input-style-1 input-required">
                         <span class="input-style-1-inactive">Program Lainnya</span>
                         <em>(required)</em>
-                        <textarea placeholder="Program Lainnya" name="program_lain"></textarea>
+                        <textarea placeholder="Program Lainnya" name="program_lain">{{data_calon.program_lain}}</textarea>
                         <input type="hidden" name="id_pemilihan" value="<?php echo $this->uri->segment(3) ?>" required>
                     </div>
                     <div class="clear"></div>
                     <button type="submit" 
-                        class="button button-full button-s shadow-large button-round-small bg-blue2-dark top-10">Tambahkan</button>
+                        class="button button-full button-s shadow-large button-round-small bg-blue2-dark top-10">Simpan</button>
                     </form>
                 </div>
             </div>
@@ -99,8 +118,8 @@
                 </p>
                 <div class="content left-50 right-50">
                     <div class="one-half">
-                        <a href="#"
-                            class="close-menu button button-center-large button-s shadow-large button-round-small bg-red2-dark">Ya</a>
+                        <a :href="hapus"
+                            class="button button-center-large button-s shadow-large button-round-small bg-red2-dark">Ya</a>
                     </div>
                     <div class="one-half last-column">
                         <a href="#"
@@ -111,3 +130,37 @@
             </div>
             <div class="menu-hider"></div>
         </div>
+
+<script type="text/javascript">
+    var vm = new Vue({
+    el: "#page",
+    data : {
+        type_input : '',
+        hapus : '#',
+        data_calon: [],
+        foto: 'front/images/image-placeholder.png'
+    },
+    computed:{
+        
+    }, 
+    watch: {
+        
+    },
+    methods:{
+        edit_calon: function(id_calon) {
+            axios
+              .get('<?php echo base_url() ?>app/get_calon/'+id_calon)
+              .then(response => (
+                this.data_calon = response.data.calon
+                ))
+            this.type_input = 'edit'
+        },
+        foto_calon: function(foto) {
+            return 'front/images/calon/'+foto
+        },
+        hapus_calon: function(id_calon,id_pemilihan) {
+            this.hapus = 'app/hapus_calon/'+id_calon+'/'+id_pemilihan
+        }
+    }
+})
+</script>

@@ -15,11 +15,11 @@
                     <em><i class="fa fa-angle-down"></i></em>
                     <select name="id_kategori">
                         <option value="default" disabled selected>Pilih Kategori Pemilihan</option>
-                        <option value="1">Pemerintahan</option>
-                        <option value="2">Pendidikan</option>
-                        <option value="3">Organisasi Masyarakat</option>
-                        <option value="4">Bisnis</option>
-                        <option value="5">Lainnya</option>
+                        <?php 
+                        foreach ($this->db->get('kategori')->result() as $key => $value) {
+                         ?>
+                        <option value="<?php echo $value->id_kategori ?>"><?php echo $value->kategori ?></option>
+                    <?php } ?>
                     </select>
                 </div>
 
@@ -93,8 +93,8 @@
                     <em><i class="fa fa-angle-down"></i></em>
                     <select name="status">
                         <option value="default" disabled selected>Pilih Status Pemilihan</option>
-                        <option value="1">Aktif</option>
-                        <option value="2">Arsip</option>
+                        <!-- <option value="1">Aktif</option>
+                        <option value="2">Arsip</option> -->
                         <option value="3">Draft</option>
                     </select>
                 </div>
@@ -106,10 +106,17 @@
                 </div>
                 </form>
 
+                <?php 
+                if ($this->session->flashdata('id_pemilihan') == '') {
+                    # code...
+                } else {
+                 ?>
+                
                 <div class="one-half top-20 bottom-10" style="text-align: center; margin-right: 0;">
                     <a href="app/data_calon/<?php echo $this->session->flashdata('id_pemilihan'); ?>" class="button button-s shadow-small bg-blue1-dark">Data Calon <i
                             class="fa fa-arrow-right"></i></a>
                 </div>
+                <?php } ?>
             </div>
         </div>
     </div>
