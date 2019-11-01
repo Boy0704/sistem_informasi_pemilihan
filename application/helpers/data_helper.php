@@ -7,6 +7,14 @@ function get_data($tabel,$primary_key,$id,$select)
 	return $data[$select];
 }
 
+function persentase_suara($id_pemilihan,$total)
+{
+	$CI =& get_instance();
+	$data = $CI->db->query("SELECT sum(total) as semua from total_suara where id_pemilihan='$id_pemilihan' ")->row();
+	$n = ($total/$data->semua)*100;
+	return $n;
+}
+
 function alert_biasa($pesan,$type)
 {
 	return 'swal("'.$pesan.'", "You clicked the button!", "'.$type.'");';

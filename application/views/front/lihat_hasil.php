@@ -58,13 +58,27 @@ $rw = $data->row();
             <div class="content">
                 <p class="center-text under-heading font-15 color-theme bottom-5">Daftar Suara Terbanyak</p>
                 <table class="table-borders">
-                    <!-- <tr>
+                    <tr>
                         <th style="min-width: 30px;">#</th>
                         <th >No Calon</th>
                         <th class="tbl-kiri">Nama Calon</th>
                         <th>Suara</th>
                         <th>Persentase</th>
-                    </tr> -->
+                    </tr>
+                    <?php 
+                    $no=1;
+                    $this->db->truncate('total_suara');
+                    $this->db->query("INSERT INTO total_suara (id_calon,total,id_pemilihan) SELECT c.id_calon,count(dp.id_pemilih) as total ,c.id_pemilihan FROM detail_pilih as dp, calon as c WHERE dp.id_calon=c.id_calon and c.id_pemilihan='$id_pemilihan' GROUP BY dp.id_calon ");
+                    foreach ($this->db->get_where('total_suara', array('id_pemilihan'=>$id_pemilihan))->result() as $rw) {
+                     ?>
+                    <tr>
+                        <td><?php echo $no; ?></td>
+                        <td><?php echo get_data('calon','id_calon',$rw->id_calon,'no_calon') ?></td>
+                        <td class="tbl-kiri"><?php echo get_data('calon','id_calon',$rw->id_calon,'nama_calon') ?></td>
+                        <td><?php echo $rw->total ?></td>
+                        <td><?php echo number_format(persentase_suara($id_pemilihan,$rw->total),2) ?> %</td>
+                    </tr>
+                    <?php $no++; } ?>
                     
                 </table>
             </div>

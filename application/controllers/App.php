@@ -175,8 +175,7 @@ class App extends CI_Controller {
         // if ($this->session->userdata('username') == '') {
         //     redirect('app/login','refresh');
         // }
-        $this->db->truncate('total_suara');
-        $this->db->query("INSERT INTO total_suara (id_calon,total,id_pemilihan) SELECT c.id_calon,count(dp.id_pemilih) as total ,c.id_pemilihan FROM detail_pilih as dp, calon as c WHERE dp.id_calon=c.id_calon and c.id_pemilihan='$id_pemilihan' GROUP BY dp.id_calon ");
+        
 		$data = array(
 			'konten' => 'front/lihat_hasil',
             'judul_page' => 'Lihat Hasil Pemilihan',
