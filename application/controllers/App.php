@@ -118,9 +118,12 @@ class App extends CI_Controller {
 		}
     }
 
-    public function simpan_pilih_calon()
+    public function simpan_pilih_calon($id_calon,$id_pemilih)
     {
-    	$this->db->insert('detail_pilih', $_POST);
+
+    	$this->db->insert('detail_pilih', array('id_calon'=>$id_calon,'id_pemilih'=>$id_pemilih));
+    	$result['sukses'] = 'sukses';
+    	echo json_encode($result);
     }
 
     public function info_pemilihan($id_pemilihan)

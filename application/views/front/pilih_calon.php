@@ -46,11 +46,18 @@
                     </a>
                     <div class="nama-calon-sdg color-theme"><?php echo $value->nama_calon ?></div>
                     <span class="nomer-besar"><?php echo $value->no_calon ?></span>
+                    <?php 
+                    $cek = $this->db->get_where('detail_pilih', array('id_pemilih'=>$this->session->userdata('id_user'),'id_calon'=>$value->id_calon));
+                    if ($cek->num_rows() > 0) {
+                        echo '<button class="button button-xxs shadow-small button-round-small bg-green2-dark">ANDA TELAH MEMILIH</button>';
+                    } else {
+                     ?>
                     <div class="center-text">
                         <a href="#" @click="infoModal('<?php echo $value->foto ?>','<?php echo $value->nama_calon ?>','<?php echo $value->visi ?>','<?php echo $value->misi ?>','<?php echo $value->program_lain ?>')" class="button button-xxs shadow-small button-round-small bg-blue2-dark"
                             data-menu="profil-calon">Profil</a>
-                        <a href="#" @click="pilih_calon('<?php echo $value->id_calon ?>','<?php echo $this->session->userdata('id_user') ?>')" class="button button-xxs shadow-small button-round-small bg-green2-dark">Pilih</a>
+                        <a href="#" @click="pilih_calon('<?php echo $value->id_calon ?>','<?php echo $this->session->userdata('id_user') ?>')" id="id<?php echo $value->id_calon ?>" class="button button-xxs shadow-small button-round-small bg-green2-dark">Pilih</a>
                     </div>
+                    <?php } ?>
                     <div class="divider bottom-30"></div>
                 </div>
                 <?php } ?>
@@ -71,8 +78,7 @@
                             Telah Dipilih</td>
                         <td class="wd-70" style="line-height: 25px; padding: 0px; font-size: 11px;color: darkorange;">
                             Pilih Lagi</td>
-                        <td rowspan="2" style="padding:0px;"><a class="button tombol-selesai"
-                                data-toast-manual-id="toast-tombol-selesai">SELESAI</a></td>
+                        <td rowspan="2" @click="selesai_pilih()" style="padding:0px;"><a class="button tombol-selesai bg-green2-dark" >SELESAI</a></td>
                     </tr>
                     <tr>
                         <th class="data-pilih ">{{harus_pilih}}</th>
@@ -120,9 +126,9 @@
         visi : '',
         misi : '',
         program : '',
-        harus_pilih : 10,
+        harus_pilih : 3,
         telah_pilih : 0,
-        pilih_lagi : 10,
+        pilih_lagi : 3,
 
         BaseUrl: '<?php echo base_url() ?>'
     },
@@ -138,10 +144,12 @@
             this.program = program
         },
         pilih_calon: function(id_calon,id_pemilih) {
-                axios.post(this.BaseUrl+'/app/simpan_pilih_calon', {
-                    id_calon: id_calon,
-                    id_pemilih: id_pemilih
-                })
+                // axios.post(this.BaseUrl+'/app/simpan_pilih_calon', {
+                //     id_calon: id_calon,
+                //     id_pemilih: id_pemilih
+                // })
+                axios
+                  .get('<?php echo base_url() ?>app/simpan_pilih_calon/'+id_calon+'/'+id_pemilih)
                 .then(res => {
                      console.log(res)
                 })
@@ -150,7 +158,12 @@
                 })
             this.telah_pilih += 1
             this.pilih_lagi = this.harus_pilih - this.telah_pilih
+            document.getElementById('id'+id_calon).style.display = 'none';
             swal('Pilihan anda berhasil disimpan', 'klik Ok!', )
+        },
+        selesai_pilih: function() {
+            swal('terimah kasih telah melakukan pemilihan', 'klik Ok!', )
+            window.location="<?php echo base_url() ?>app"
         }
     }
 })

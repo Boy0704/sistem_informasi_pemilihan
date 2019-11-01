@@ -1207,7 +1207,7 @@ $(document).ready(function(){
 				  }
 				});
 			}
-			loadJS('scripts/charts.js', call_charts_to_page, document.body);
+			loadJS('front/scripts/charts.js', call_charts_to_page, document.body);
 		}        
         
         //Demo Functions
