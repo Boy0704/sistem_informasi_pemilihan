@@ -45,7 +45,7 @@
             <div class="content">
                 <div class="one-half">
                     <?php 
-                    foreach ($this->db->get('pemilihan', 5, 0)->result() as $rw) {
+                    foreach ($this->db->get('pemilihan', 2, 0)->result() as $rw) {
 
                      ?>
                     <div class="sisp-col-item">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="one-half last-column">
                     <?php 
-                    foreach ($this->db->get('pemilihan', 5, 4)->result() as $rw) {
+                    foreach ($this->db->get('pemilihan', 3, 4)->result() as $rw) {
 
                      ?>
                     <div class="sisp-col-item">

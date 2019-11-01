@@ -26,6 +26,11 @@
         </div>
 
         <div class="page-content header-clear-large">
+            <div class="alert alert-small alert-round-medium bg-green1-dark">
+                <i class="fa fa-check"></i>
+                <span>Selamat Datang Kembali <?php echo $this->session->userdata('username'); ?></span>
+                <i class="fa fa-times"></i>
+            </div> 
             <div class="content bottom-0">
 
                 <?php 
@@ -42,9 +47,9 @@
                     <div class="nama-calon-sdg color-theme"><?php echo $value->nama_calon ?></div>
                     <span class="nomer-besar"><?php echo $value->no_calon ?></span>
                     <div class="center-text">
-                        <a href="#" class="button button-xxs shadow-small button-round-small bg-blue2-dark"
+                        <a href="#" @click="infoModal('<?php echo $value->foto ?>','<?php echo $value->nama_calon ?>','<?php echo $value->visi ?>','<?php echo $value->misi ?>','<?php echo $value->program_lain ?>')" class="button button-xxs shadow-small button-round-small bg-blue2-dark"
                             data-menu="profil-calon">Profil</a>
-                        <a href="#" onclick="swal('Pilihan anda berhasil disimpan', 'klik Ok!', )" class="button button-xxs shadow-small button-round-small bg-green2-dark">Pilih</a>
+                        <a href="#" @click="pilih_calon('<?php echo $value->id_calon ?>','<?php echo $this->session->userdata('id_user') ?>')" class="button button-xxs shadow-small button-round-small bg-green2-dark">Pilih</a>
                     </div>
                     <div class="divider bottom-30"></div>
                 </div>
@@ -70,9 +75,9 @@
                                 data-toast-manual-id="toast-tombol-selesai">SELESAI</a></td>
                     </tr>
                     <tr>
-                        <th class="data-pilih ">10</th>
-                        <th class="data-pilih">7</th>
-                        <th class="data-pilih">3</th>
+                        <th class="data-pilih ">{{harus_pilih}}</th>
+                        <th class="data-pilih">{{telah_pilih}}</th>
+                        <th class="data-pilih">{{pilih_lagi}}</th>
                     </tr>
                 </table>
             </div>
@@ -83,36 +88,73 @@
         <div id="profil-calon" class="menu menu-box-modal round-medium" data-menu-height="340" data-menu-width="320"
             data-menu-effect="menu-over">
             <div class="boxed-text-huge">
-                <img class="preload-image horizontal-center top-10" width="80" src="images/empty.png"
-                    data-src="images/preload-logo.png" alt="img">
-                <h6 class="center-text uppercase ultrabold top-10 bottom-10">Muhammad Ismail Yusanto</h6>
+                <img class="preload-image horizontal-center top-10" width="80" :src="foto"
+                    :data-src="foto" alt="img">
+                <h6 class="center-text uppercase ultrabold top-10 bottom-10">{{nama_calon}}</h6>
                 <div class="divider bottom-5"></div>
                 <p class="text-left ultrabold bottom-5">Visi:</p>
                 <p style="line-height:15px;margin-bottom: 12px; text-align: justify;">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                    of type and scrambled it to make a type specimen book.
+                    {{visi}}
                 </p>
                 <p class="text-left ultrabold bottom-5">Visi:</p>
                 <p style="line-height:15px;margin-bottom: 12px; text-align: justify;">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                    of type and scrambled it to make a type specimen book.
+                    {{misi}}
                 </p>
                 <p class="text-left ultrabold bottom-5">Program:</p>
                 <p style="line-height:15px;margin-bottom: 12px; text-align: justify;">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                    of type and scrambled it to make a type specimen book.
+                    {{program}}
                 </p>
                 <div class="divider bottom-15"></div>
             </div>
         </div>
         <div class="menu-hider"></div>
 
+    </div>
+
+<script type="text/javascript">
+    var vm = new Vue({
+    el: "#page",
+    data : {
+        foto : 'front/images/empty.png',
+        nama_calon : '',
+        visi : '',
+        misi : '',
+        program : '',
+        harus_pilih : 10,
+        telah_pilih : 0,
+        pilih_lagi : 10,
+
+        BaseUrl: '<?php echo base_url() ?>'
+    },
+    computed:{
+        
+    }, 
+    methods:{
+        infoModal: function(foto,nama_calon,visi,misi,program) {
+            this.foto = 'front/images/calon/'+foto
+            this.nama_calon = nama_calon
+            this.visi = visi
+            this.misi = misi
+            this.program = program
+        },
+        pilih_calon: function(id_calon,id_pemilih) {
+                axios.post(this.BaseUrl+'/app/simpan_pilih_calon', {
+                    id_calon: id_calon,
+                    id_pemilih: id_pemilih
+                })
+                .then(res => {
+                     console.log(res)
+                })
+                .catch(error => {
+                     console.log(error)
+                })
+            this.telah_pilih += 1
+            this.pilih_lagi = this.harus_pilih - this.telah_pilih
+            swal('Pilihan anda berhasil disimpan', 'klik Ok!', )
+        }
+    }
+})
+</script>
 
 
-
-        <script type="text/javascript" src="scripts/jquery.js"></script>
-        <script type="text/javascript" src="scripts/plugins.js" async></script>
-        <script type="text/javascript" src="scripts/custom.js" async></script>
+        

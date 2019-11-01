@@ -31,7 +31,7 @@ class App extends CI_Controller {
 
     public function panitia()
 	{
-        if ($this->session->userdata('username') == '') {
+        if ($this->session->userdata('akses') != 'panitia') {
             redirect('app/login','refresh');
         }
 		$data = array(
@@ -53,6 +53,76 @@ class App extends CI_Controller {
 		$this->load->view('f_index', $data);
     }
 
+    public function pemilihan_draft()
+	{ 
+		$data = array(
+			'konten' => 'front/pemilihan_draft',
+            'judul_page' => 'pemilihan_draft',
+		);
+		$this->load->view('f_index', $data);
+    }
+
+    public function pemilihan_arsip()
+	{ 
+		$data = array(
+			'konten' => 'front/pemilihan_arsip',
+            'judul_page' => 'pemilihan_arsip',
+		);
+		$this->load->view('f_index', $data);
+    }
+
+    public function pemilihan_aktif()
+	{ 
+		$data = array(
+			'konten' => 'front/pemilihan_aktif',
+            'judul_page' => 'pemilihan_aktif',
+		);
+		$this->load->view('f_index', $data);
+    }
+
+    public function login_pemilih()
+	{ 
+		if ($_POST== NULL) {
+			$data = array(
+				'konten' => 'front/login_pemilih',
+	            'judul_page' => 'Login Pemilih',
+			);
+			$this->load->view('f_index', $data);
+		} else {
+			$username = $this->input->post('username');
+			$password = $this->input->post('password');
+
+			// $hashed = '$2y$10$LO9IzV0KAbocIBLQdgy.oeNDFSpRidTCjXSQPK45ZLI9890g242SG';
+			$cek_user = $this->db->query("SELECT * FROM pemilih WHERE nama_pemilih='$username' and kode_akun='$password' ");
+			// if (password_verify($password, $hashed)) {
+			if ($cek_user->num_rows() > 0) {
+				foreach ($cek_user->result() as $row) {
+					
+                    $sess_data['id_user'] = $row->id_pemilih;
+					$sess_data['nama'] = $row->nama_pemilih;
+					$sess_data['username'] = $row->nama_pemilih;
+					$sess_data['level'] = 'pemilih';
+					$this->session->set_userdata($sess_data);
+				}
+				// print_r($this->session->userdata());
+				// exit;
+				// $sess_data['username'] = $username;
+				// $this->session->set_userdata($sess_data);
+				redirect('app');
+
+				// redirect('app/index');
+			} else {
+				$this->session->set_flashdata('message', alert_biasa('Gagal Login!\n username atau password kamu salah','warning'));
+				redirect('app/login_pemilih','refresh');
+			}
+		}
+    }
+
+    public function simpan_pilih_calon()
+    {
+    	$this->db->insert('detail_pilih', $_POST);
+    }
+
     public function info_pemilihan($id_pemilihan)
 	{
         // if ($this->session->userdata('username') == '') {
@@ -61,9 +131,40 @@ class App extends CI_Controller {
 		$data = array(
 			'konten' => 'front/info_pemilihan',
             'judul_page' => 'Info Pemilihan',
+            'id_pemilihan'=> $id_pemilihan,
             'data' => $this->db->get_where('pemilihan', array('id_pemilihan'=>$id_pemilihan))
 		);
 		$this->load->view('f_index', $data);
+    }
+
+    public function lihat_status_pemilih($id_pemilihan)
+	{
+		$data = array(
+			'konten' => 'front/status_pemilih',
+            'judul_page' => 'Status Pemilihan',
+            'id_pemilihan'=> $id_pemilihan,
+            'data' => $this->db->get_where('pemilihan', array('id_pemilihan'=>$id_pemilihan))
+		);
+		$this->load->view('f_index', $data);
+    }
+
+    public function edit_pemilihan($id_pemilihan)
+    {
+    	if ($_POST == NULL) {
+			$data = array(
+				'konten' => 'front/edit_pemilihan',
+	            'judul_page' => 'Data Pemilihan',
+	            'data' => $this->db->get_where('pemilihan', array('id_pemilihan'=>$id_pemilihan)),
+			);
+			$this->load->view('f_index', $data);
+		} else {
+			$_POST['id_user'] = $this->session->userdata('id_user');
+			$this->db->where('id_pemilihan', $id_pemilihan);
+			$this->db->update('pemilihan', $_POST);
+			$this->session->set_flashdata('message', alert_biasa('Berhasil Simpan Data\n Lanjutkan Isi data calon klik tombol di bawah!','success'));
+			$this->session->set_flashdata('id_pemilihan', $id_pemilihan);
+			redirect('app/data_pemilihan','refresh');
+		}
     }
 
     public function lihat_hasil($id_pemilihan)
@@ -79,10 +180,26 @@ class App extends CI_Controller {
 		$this->load->view('f_index', $data);
     }
 
+    public function aktifkan_pemilihan($id_pemilihan)
+    {
+    	$this->db->where('id_pemilihan', $id_pemilihan);
+    	$this->db->update('pemilihan', array('status'=>1));
+    	$this->session->set_flashdata('message', alert_biasa('Berhasil di aktifkan!','success'));
+		redirect('app','refresh');	
+    }
+
+    public function tutup_pemilihan($id_pemilihan)
+    {
+    	$this->db->where('id_pemilihan', $id_pemilihan);
+    	$this->db->update('pemilihan', array('status'=>3));
+    	$this->session->set_flashdata('message', alert_biasa('Berhasil di non-aktifkan!','success'));
+		redirect('app','refresh');	
+    }
+
     public function lakukan_pemilihan($id_pemilihan)
 	{
         if ($this->session->userdata('username') == '') {
-            redirect('app/login','refresh');
+            redirect('app/login_pemilih','refresh');
         }
 		$data = array(
 			'konten' => 'front/pilih_calon',
@@ -94,9 +211,9 @@ class App extends CI_Controller {
 
     public function data_pemilihan()
     {
-    	// if ($this->session->userdata('username') == '') {
-     //        redirect('app/login','refresh');
-     //    }
+    	if ($this->session->userdata('username') == '') {
+            redirect('app/login','refresh');
+        }
 
 		if ($_POST == NULL) {
 			$data = array(
@@ -290,7 +407,7 @@ class App extends CI_Controller {
 
 	public function aksi_login()
 	{
-		$email = $this->input->post('email');
+			$email = $this->input->post('email');
 			$password = md5($this->input->post('password'));
 
 			// $hashed = '$2y$10$LO9IzV0KAbocIBLQdgy.oeNDFSpRidTCjXSQPK45ZLI9890g242SG';

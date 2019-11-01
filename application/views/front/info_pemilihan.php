@@ -59,48 +59,17 @@ $rw = $data->row();
                         <h5 class="center-text"><i class="fa fa-user color-green1-dark right-10"></i>Daftar Calon</h5>
                         <div class="divider divider-margins bottom-15"></div>
                         <div class="gallery gallery-thumbs gallery-square">
+                            <?php 
+                            foreach ($this->db->get_where('calon',array('id_pemilihan'=>$id_pemilihan))->result() as $key => $rw) {
+                             ?>
                             <a class="show-gallery polaroid-effect" href="#" title="Vynil and Typerwritter">
-                                <img src="front/images/empty.png" data-src="front/images/pictures/1s.jpg"
+                                <img src="front/images/empty.png" data-src="front/images/calon/<?php echo $rw->foto ?>"
                                     class="preload-image responsive-image" alt="img">
                                 <div class="nama-calon-kcl">
-                                    <span class="color-theme">Ridwan Efendi</span></div>
-                                <span class="nomer">01</span>
+                                    <span class="color-theme"><?php echo $rw->nama_calon ?></span></div>
+                                <span class="nomer"><?php echo $rw->no_calon ?></span>
                             </a>
-                            <a class="show-gallery polaroid-effect" href="#" title="Fruit Cookie Pie">
-                                <img src="front/images/empty.png" data-src="front/images/pictures/2s.jpg"
-                                    class="preload-image responsive-image" alt="img">
-                                <div class="nama-calon-kcl">
-                                    <span class="color-theme">Muhammad Nurdiansyah Indra Lesmana Wijaya</span></div>
-                                <span class="nomer">02</span>
-                            </a>
-                            <a class="show-gallery polaroid-effect" href="#" title="Plain Cookies and Flour">
-                                <img src="front/images/empty.png" data-src="front/images/pictures/3s.jpg"
-                                    class="preload-image responsive-image" alt="img">
-                                <div class="nama-calon-kcl">
-                                    <span class="color-theme">Nina Herlinawati</span></div>
-                                <span class="nomer">03</span>
-                            </a>
-                            <a class="show-gallery polaroid-effect" href="#" title="Pots and Stuff">
-                                <img src="front/images/empty.png" data-src="front/images/pictures/4s.jpg"
-                                    class="preload-image responsive-image" alt="img">
-                                <div class="nama-calon-kcl">
-                                    <span class="color-theme">Andri Lesmana</span></div>
-                                <span class="nomer">04</span>
-                            </a>
-                            <a class="show-gallery polaroid-effect" href="#" title="Delicious Strawberries">
-                                <img src="front/images/empty.png" data-src="front/images/pictures/5s.jpg"
-                                    class="preload-image responsive-image" alt="img">
-                                <div class="nama-calon-kcl">
-                                    <span class="color-theme">Defarel Septian Mustiawan</span></div>
-                                <span class="nomer">05</span>
-                            </a>
-                            <a class="show-gallery polaroid-effect" href="#" title="A Beautiful Camera">
-                                <img src="front/images/empty.png" data-src="front/images/pictures/6s.jpg"
-                                    class="preload-image responsive-image" alt="img">
-                                <div class="nama-calon-kcl">
-                                    <span class="color-theme">Camelia Sulistia</span></div>
-                                <span class="nomer">06</span>
-                            </a>
+                            <?php } ?>
                         </div>
                     </div>
 
@@ -130,13 +99,16 @@ $rw = $data->row();
                                 <th class="tbl-kiri">Kel</th>
                                 <th>Status</th>
                             </tr>
-                            <!-- <tr>
+                            <?php 
+                            foreach ($this->db->get('pemilih')->result() as $key => $rw) {
+                             ?>
+                            <tr>
                                 <td>1</td>
-                                <td class="tbl-kiri">Hendra</td>
-                                <td class="tbl-kiri">XII-IPA</td>
+                                <td class="tbl-kiri"><?php echo $rw->nama_pemilih ?></td>
+                                <td class="tbl-kiri"><?php echo $rw->kel ?></td>
                                 <td><i class="fa fa-check-square color-green1-dark"></i> Belum</td>
-                            </tr> -->
-                            
+                            </tr>
+                            <?php } ?>
                         </table>
                         <!-- <div class="pagination">
                             <a href="#"><i class="fa fa-angle-left"></i></a>
