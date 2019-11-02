@@ -31,7 +31,7 @@ class App extends CI_Controller {
 
     public function panitia()
 	{
-        if ($this->session->userdata('akses') != 'panitia') {
+        if ($this->session->userdata('level') != 'panitia') {
             redirect('app/login','refresh');
         }
 		$data = array(
