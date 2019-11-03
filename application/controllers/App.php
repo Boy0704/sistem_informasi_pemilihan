@@ -203,7 +203,7 @@ class App extends CI_Controller {
 
     public function lakukan_pemilihan($id_pemilihan)
 	{
-        if ($this->session->userdata('username') == '') {
+        if ($this->session->userdata('level') != 'pemilih') {
             redirect('app/login_pemilih','refresh');
         }
 		$data = array(
