@@ -271,7 +271,7 @@ class App extends CI_Controller {
 				$_POST['foto'] = $this->image;
 				//cek no calon
 				$cek_no_calon = $this->db->get_where('calon', array('no_calon'=>$_POST['no_calon']))->num_rows();
-				if ($cek_no_calon < 1 ) {
+				if ($cek_no_calon == 1 ) {
 					$this->session->set_flashdata('message', alert_biasa('no calon '.$_POST['no_calon'].' telah ada !','info'));
 					redirect('app/data_calon/'.$id);
 				} else {
