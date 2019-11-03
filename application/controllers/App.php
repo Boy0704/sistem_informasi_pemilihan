@@ -269,9 +269,17 @@ class App extends CI_Controller {
 	            }
 
 				$_POST['foto'] = $this->image;
-				$this->db->insert('calon', $_POST);
-				$this->session->set_flashdata('message', alert_biasa('Berhasil Simpan Data!','success'));
-				redirect('app/data_calon/'.$id);
+				//cek no calon
+				$cek_no_calon = $this->db->get_where('calon', array('no_calon'=>$_POST['no_calon']))->num_rows();
+				if ($cek_no_calon < 1 ) {
+					$this->session->set_flashdata('message', alert_biasa('no calon '.$_POST['no_calon'].' telah ada !','info'));
+					redirect('app/data_calon/'.$id);
+				} else {
+
+					$this->db->insert('calon', $_POST);
+					$this->session->set_flashdata('message', alert_biasa('Berhasil Simpan Data!','success'));
+					redirect('app/data_calon/'.$id);
+				}
 			} elseif($_POST['type_input'] == 'edit') {
 				
 				unset($_POST['type_input']);
@@ -322,7 +330,18 @@ class App extends CI_Controller {
 		redirect('app/data_calon/'.$id_pemilihan);
     }
 
-    public function data_pemilih()
+    public function cek_nama_pemilih($nama)
+    {
+        $query = $this->db->get_where('pemilih', array('nama_pemilih'=>$nama));
+        if ($query->num_rows() > 0) {
+        	echo json_encode(1);
+        } else {
+        	echo json_encode(0);
+        }
+        echo json_encode($result);
+    }
+
+    public function data_pemilih($id_pemilihan)
     {
     	if ($this->session->userdata('username') == '') {
             redirect('app/login','refresh');
@@ -335,18 +354,44 @@ class App extends CI_Controller {
 			);
 			$this->load->view('f_index', $data);
 		} else {
-			$this->db->insert('pemilih', $_POST);
-			$this->session->set_flashdata('message', alert_biasa('Berhasil Simpan Data!','success'));
-			redirect('app/data_pemilih','refresh');
+			if ($_POST['type_input'] == 'tambah') {
+				unset($_POST['type_input']);
+				$query = $this->db->get_where('pemilih', array('nama_pemilih'=>$_POST['nama_pemilih']));
+				if ($query->num_rows() == 1) {
+					$this->session->set_flashdata('message', alert_biasa('Nama calon sudah ada\n silahkan nama lain !','info'));
+					redirect('app/data_pemilih/'.$id_pemilihan,'refresh');
+				} else {
+
+					$this->db->insert('pemilih', $_POST);
+					$this->session->set_flashdata('message', alert_biasa('Berhasil Simpan Data!','success'));
+					redirect('app/data_pemilih/'.$id_pemilihan,'refresh');
+				}
+			} else {
+				unset($_POST['type_input']);
+				$this->db->where('id_pemilih', $_POST['id_pemilih']);
+					$this->db->update('pemilih', $_POST);
+					$this->session->set_flashdata('message', alert_biasa('Berhasil Simpan Data!','success'));
+					redirect('app/data_pemilih/'.$id_pemilihan,'refresh');
+				
+					
+			}
+			
 		}
     }
 
-    public function hapus_pemilih($id_pemilih)
+    public function get_pemilih($id_pemilih)
+    {
+        $query = $this->db->get_where('pemilih', array('id_pemilih'=>$id_pemilih))->row();
+        $result['pemilih'] = $query;
+        echo json_encode($result);
+    }
+
+    public function hapus_pemilih($id_pemilih,$id_pemilihan)
     {
     	$this->db->where('id_pemilih', $id_pemilih);
     	$this->db->delete('pemilih');
     	$this->session->set_flashdata('message', alert_biasa('Berhasil Hapus Data!','success'));
-		redirect('app/data_pemilih');
+		redirect('app/data_pemilih/'.$id_pemilihan);
     }
 
     public function hapus_all_pemilih()
@@ -367,8 +412,40 @@ class App extends CI_Controller {
 			$this->load->view('f_index', $data);
     	} else {
     		if ($_POST['password'] == '') {
+    			// print_r($_FILES);exit();
+    			$config['upload_path'] = './front/images/user/';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['max_size']  = '10000';
+                $config['file_name']  = time();
+                
+                $this->load->library('upload', $config);
+                
+                if ( ! $this->upload->do_upload('foto')){
+                    echo $this->upload->display_errors();
+                }
+                else{
+                    $this->image = $this->upload->data('file_name');
+                }
+
+    			$_POST['foto'] = $this->image;
     			unset($_POST['password']);
     		} else {
+    			// print_r($_FILES);exit();
+    			$config['upload_path'] = './front/images/user/';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['max_size']  = '10000';
+                $config['file_name']  = time();
+                
+                $this->load->library('upload', $config);
+                
+                if ( ! $this->upload->do_upload('foto')){
+                    echo $this->upload->display_errors();
+                }
+                else{
+                    $this->image = $this->upload->data('file_name');
+                }
+
+    			$_POST['foto'] = $this->image;
     			$_POST['password'] = md5($_POST['password']);
     		}
     		$this->db->where('id_user', $this->session->userdata('id_user'));

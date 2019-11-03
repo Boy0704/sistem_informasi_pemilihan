@@ -25,7 +25,7 @@
                 <div class="divider divider-margins top-5"></div>
                 <div class="profile-sub-heading">
                     <div class="fac fac-radio fac-default"><span></span>
-                        <a href="#" class="button button-xxs shadow-small button-round-small bg-green2-dark"
+                        <a href="#" @click="type_input='tambah'" class="button button-xxs shadow-small button-round-small bg-green2-dark"
                             data-menu="menu-data-pemilih">Tambah</a>
                     </div>
                     <div class="fac fac-radio fac-green"><span></span>
@@ -51,7 +51,7 @@
                         </tr>
                         <?php 
                         $no = 1;
-                        foreach ($this->db->get('pemilih')->result() as $row) {
+                        foreach ($this->db->get_where('pemilih', array('id_pemilihan'=>$this->uri->segment(3)))->result() as $row) {
                          ?>
                         <tr>
                             <td><?php echo $no; ?></td>
@@ -59,7 +59,7 @@
                             <td class="tbl-kiri2"><?php echo $row->kel ?></td>
                             <td></i><?php echo $row->kode_akun ?></td>
                             <td style="display: flex">
-                                <a href="#" data-menu="menu-data-pemilih">
+                                <a href="#" @click="edit_pemilih('<?php echo $row->id_pemilih ?>')" data-menu="menu-data-pemilih">
                                     <i class="fa fa-edit color-green2-dark" style="margin: 2px;"></i></a>
                                 <a href="#" @click="hapus_pemilih('<?php echo $row->id_pemilih ?>')" data-menu="menu-hapus-pemilih">
                                     <i class="fa fa-trash-alt color-orange-dark" style="margin: 2px;">
@@ -89,30 +89,41 @@
                     Kelola data pemilih.
                 </p>
                 <form action="" method="post">
+                    <div v-if="type_input === 'tambah'">
+                    <input  type="hidden" name="type_input" value="tambah">
+                    </div>
+                    <div v-if="type_input === 'edit'">
+                    <input type="hidden" name="type_input" value="edit">
+                    <input type="hidden" name="id_pemilih" :value="data_pemilih.id_pemilih">
+                    </div>
+                    <!-- <div v-show="status_np">
+                        <span style="background-color: green; color:white;"><i>{{status_nama}}</i></span>
+                    </div> -->
                 <div class="input-style has-icon input-style-1 input-required">
                     <i class="input-icon fa fa-sort-numeric-down font-11"></i>
                     <span>Nama Pemilih</span>
                     <em>(wajib)</em>
-                    <input type="name" name="nama_pemilih" placeholder="Nama Pemilih">
+                    <input type="name" name="nama_pemilih" placeholder="Nama Pemilih" :value="data_pemilih.nama_pemilih" required>
                 </div>
                 <div class="input-style has-icon input-style-1 input-required">
                     <i class="input-icon fa fa-id-card font-11"></i>
                     <span>Kategori/Kelas/Kelompok dll</span>
                     <em>(wajib)</em>
-                    <input type="name" name="kel" placeholder="Kategori/Kelas/Kelompok dll">
+                    <input type="name" name="kel" placeholder="Kategori/Kelas/Kelompok dll" :value="data_pemilih.kel" required>
                 </div>
                 <div class="input-style has-icon input-style-1">
                         <i class="input-icon fa fa-phone font-11"></i>
                         <span>Nomor Handphone</span>
                         <em>(boleh kosong)</em>
-                        <input type="name" name="no_telp" placeholder="Nomor HP (Utamakan Whatsapp)">
+                        <input type="name" name="no_telp" :value="data_pemilih.no_telp" placeholder="Nomor HP (Utamakan Whatsapp)" minlength="9" maxlength="14" >
                     </div>
                 <div class="input-style has-icon input-style-1 input-required">
                         <i class="input-icon fa fa-id-card font-11"></i>
                         <span>Kode Akun</span>
                         <em>(wajib)</em>
-                        <input type="name" name="kode_akun" placeholder="Kode Akun">
+                        <input type="text" name="kode_akun" :value="data_pemilih.kode_akun" placeholder="Kode Akun" required>
                     </div>
+                    <input type="hidden" name="id_pemilihan" value="<?php echo $this->uri->segment(3); ?>">
                 <div class="clear"></div>
                 <button type="submit" class="button button-full button-s shadow-large button-round-small bg-blue2-dark top-10">Simpan</button>
             </div>
@@ -210,6 +221,10 @@
     el: "#page",
     data : {
         type_input : '',
+        get_nama_pemilih: '',
+        status_np: false,
+        status_nama: '',
+        cek_nama_pemilih: '',
         hapus : '#',
         data_pemilih: [],
     },
@@ -230,7 +245,24 @@
         },
         hapus_pemilih: function(id_pemilih) {
             this.hapus = 'app/hapus_pemilih/'+id_pemilih
-        }
+        },
+        // cek_nama: function() {
+
+        //     axios
+        //   .get('<?php echo base_url() ?>app/cek_nama_pemilih/'+this.cek_nama_pemilih)
+        //   .then(response => (
+        //     this.get_nama_pemilih = response.data
+        //     ))
+        //   if (this.get_nama_pemilih == 1) {
+        //     this.status_nama = 'Nama Calon ini telah ada';
+        //     this.status_np = false;
+        //   } else {
+        //     this.status_nama = 'Nama Calon bisa di gunakan';
+        //     this.status_np = true;
+        //   }
+        //   console.log(this.status_nama);
+        //   console.log(this.status_np);
+        // }
     }
 })
 </script>

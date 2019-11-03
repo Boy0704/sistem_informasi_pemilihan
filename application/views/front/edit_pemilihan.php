@@ -109,17 +109,12 @@ $dt = $data->row();
                 </div>
                 </form>
 
-                <?php 
-                if ($this->session->flashdata('id_pemilihan') == '') {
-                    # code...
-                } else {
-                 ?>
+               
                 
                 <div class="one-half top-20 bottom-10" style="text-align: center; margin-right: 0;">
-                    <a href="app/data_calon/<?php echo $this->session->flashdata('id_pemilihan'); ?>" class="button button-s shadow-small bg-blue1-dark">Data Calon <i
+                    <a href="app/data_calon/<?php echo $dt->id_pemilihan; ?>" class="button button-s shadow-small bg-blue1-dark">Data Calon <i
                             class="fa fa-arrow-right"></i></a>
                 </div>
-                <?php } ?>
             </div>
         </div>
     </div>

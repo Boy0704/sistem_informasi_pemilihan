@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="one-half top-20 bottom-10" style="text-align: center; margin-right: 0;">
-                        <a href="app/data_pemilih.html" class="button button-s shadow-small bg-blue1-dark">Data Pemilih <i
+                        <a href="app/data_pemilih/<?php echo $this->uri->segment(3) ?>" class="button button-s shadow-small bg-blue1-dark">Data Pemilih <i
                                 class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                         Isi data calon sesuai urutan.
                     </p>
                     <div v-if="type_input === 'tambah'">
-                        <img class="preload-image horizontal-center" width="80" :src="foto"
+                        <img v-if="url" class="preload-image horizontal-center" width="80" :src="foto"
                             :data-src="foto" alt="img"
                             style="border: dashed; border-width: thin; color: darkgrey; padding: 5px;">
                     </div>
@@ -72,7 +72,7 @@
                         <i class="input-icon fa fa-sort-numeric-down font-11"></i>
                         <span>Upload Foto</span>
                         <em>(wajib)</em>
-                        <input type="file" name="foto" placeholder="Nomor Calon">
+                        <input type="file" name="foto" placeholder="Nomor Calon" multiple accept='image/*' @change="onFileChange">
                     </div>
                     <div class="input-style has-icon input-style-1 input-required">
                         <i class="input-icon fa fa-sort-numeric-down font-11"></i>
@@ -138,7 +138,8 @@
         type_input : '',
         hapus : '#',
         data_calon: [],
-        foto: 'front/images/image-placeholder.png'
+        foto: null,
+        url: false
     },
     computed:{
         
@@ -160,6 +161,12 @@
         },
         hapus_calon: function(id_calon,id_pemilihan) {
             this.hapus = 'app/hapus_calon/'+id_calon+'/'+id_pemilihan
+        },
+        onFileChange(e)
+        {
+            const file = e.target.files[0];
+            this.foto = URL.createObjectURL(file);
+            this.url = true;
         }
     }
 })
