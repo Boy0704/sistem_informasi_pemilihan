@@ -18,7 +18,7 @@
                 <div class="input-style input-style-1 input-required">
                     <span>Kategori Pemilihan</span>
                     <em><i class="fa fa-angle-down"></i></em>
-                    <select name="id_kategori">
+                    <select name="id_kategori" required>
                         <option value="default" disabled selected>Pilih Kategori Pemilihan</option>
                         <?php 
                         foreach ($this->db->get('kategori')->result() as $key => $value) {
@@ -32,21 +32,21 @@
                     <i class="input-icon fa fa-poll"></i>
                     <span>Isi Nama Pemilihan</span>
                     <em>(wajib)</em>
-                    <input type="name" name="nama_pemilihan" placeholder="Nama Pemilihan">
+                    <input type="name" name="nama_pemilihan" placeholder="Nama Pemilihan" required>
                 </div>
 
                 <div class="one-half">
                     <div class="input-style has-icon input-style-1 input-required bottom-30">
                         <i class="input-icon fa fa-user-cog"></i>
                         <span>Pilih Calon</span>
-                        <input type="number" name="jumlah_pemilihan" placeholder="Jmlh Calon Dipilih">
+                        <input type="number" name="jumlah_pemilihan" placeholder="Jmlh Calon Dipilih" required>
                     </div>
                 </div>
                 <div class="one-half last-column">
                     <div class="input-style has-icon input-style-1 input-required bottom-30">
                         <i class="input-icon fa fa-phone"></i>
                         <span>HP Admin [WhatsApp]</span>
-                        <input type="number" name="kontak_panitia" placeholder="Kontak Panitia">
+                        <input type="number" name="kontak_panitia" placeholder="Kontak Panitia" required>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -55,28 +55,28 @@
                     <i class="input-icon fa fa-building"></i>
                     <span>Nama Lembaga/Yayasan/Organisasi</span>
                     <em>(wajib)</em>
-                    <input type="name" name="penyelenggara" placeholder="Penyelenggara">
+                    <input type="name" name="penyelenggara" placeholder="Penyelenggara" required>
                 </div>
 
                 <p class="bottom-0 top-15">Lokasi Penyelenggaraan</p>
                 <div class="input-style has-icon input-style-1 input-required">
                     <span>Alamat Rinci Sampai Tingkat Desa</span>
                     <em>(wajib)</em>
-                    <textarea placeholder="Alamat Pemilihan" name="lokasi"></textarea>
+                    <textarea placeholder="Alamat Pemilihan" name="lokasi" required></textarea>
                 </div>
 
                 <div class="input-style has-icon input-style-1 input-required">
                     <i class="input-icon fa fa-map-marker"></i>
                     <span>Lokasi Kecamatan</span>
                     <em>(wajib)</em>
-                    <input type="name" name="kecamatan" placeholder="Lokasi Kecamatan">
+                    <input type="name" name="kecamatan" placeholder="Lokasi Kecamatan" required>
                 </div>
 
                 <div class="input-style has-icon input-style-1 input-required">
                     <i class="input-icon fa fa-map-marker-alt"></i>
                     <span>Lokasi Kabupaten/Kota</span>
                     <em>(wajib)</em>
-                    <input type="name" name="kelurahan" placeholder="Lokasi Kabupaten/Kota">
+                    <input type="name" name="kelurahan" placeholder="Lokasi Kabupaten/Kota" required>
                 </div>
 
                 <p class="bottom-0 top-15">Waktu Pemilihan</p>
@@ -84,14 +84,14 @@
                     <i class="input-icon fa fa-play-circle"></i>
                     <span>Waktu Dimulai</span>
                     <em>(wajib)</em>
-                    <input type="datetime-local" name="start_date" placeholder="Waktu Dimulai">
+                    <input type="datetime-local" name="start_date" placeholder="Waktu Dimulai" required>
                 </div>
 
                 <div class="input-style has-icon input-style-1 input-required">
                     <i class="input-icon fa fa-stop-circle"></i>
                     <span>Waktu Selesai</span>
                     <em>(wajib)</em>
-                    <input type="datetime-local" name="end_date" placeholder="Waktu Selesai">
+                    <input type="datetime-local" name="end_date" placeholder="Waktu Selesai" required>
                 </div>
                 <!-- <div class="input-style input-style-1 input-required">
                     <span>Status Pemilihan</span>
@@ -122,7 +122,7 @@
                 <div class="input-style input-style-1 input-required">
                     <span>Kategori Pemilihan</span>
                     <em><i class="fa fa-angle-down"></i></em>
-                    <select name="id_kategori">
+                    <select name="id_kategori" required>
                         <option value="<?php echo $data->id_kategori ?>" selected><?php echo $data->id_kategori ?></option>
                         <?php 
                         foreach ($this->db->get('kategori')->result() as $key => $value) {
@@ -136,21 +136,21 @@
                     <i class="input-icon fa fa-poll"></i>
                     <span>Isi Nama Pemilihan</span>
                     <em>(wajib)</em>
-                    <input type="name" name="nama_pemilihan" value="<?php echo $data->nama_pemilihan ?>" placeholder="Nama Pemilihan">
+                    <input type="name" name="nama_pemilihan" value="<?php echo $data->nama_pemilihan ?>" placeholder="Nama Pemilihan" required>
                 </div>
 
                 <div class="one-half">
                     <div class="input-style has-icon input-style-1 input-required bottom-30">
                         <i class="input-icon fa fa-user-cog"></i>
                         <span>Pilih Calon</span>
-                        <input type="number" name="jumlah_pemilihan" placeholder="Jmlh Calon Dipilih" value="<?php echo $data->jumlah_pemilihan ?>">
+                        <input type="number" name="jumlah_pemilihan" placeholder="Jmlh Calon Dipilih" value="<?php echo $data->jumlah_pemilihan ?>" required>
                     </div>
                 </div>
                 <div class="one-half last-column">
                     <div class="input-style has-icon input-style-1 input-required bottom-30">
                         <i class="input-icon fa fa-phone"></i>
                         <span>HP Admin [WhatsApp]</span>
-                        <input type="number" name="kontak_panitia" placeholder="Kontak Panitia" <?php echo $data->kontak_panitia ?>>
+                        <input type="number" name="kontak_panitia" placeholder="Kontak Panitia" value="<?php echo $data->kontak_panitia ?>" required>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -159,28 +159,28 @@
                     <i class="input-icon fa fa-building"></i>
                     <span>Nama Lembaga/Yayasan/Organisasi</span>
                     <em>(wajib)</em>
-                    <input type="name" name="penyelenggara" placeholder="Penyelenggara" value="<?php echo $data->penyelenggara ?>">
+                    <input type="name" name="penyelenggara" placeholder="Penyelenggara" value="<?php echo $data->penyelenggara ?>" required>
                 </div>
 
                 <p class="bottom-0 top-15">Lokasi Penyelenggaraan</p>
                 <div class="input-style has-icon input-style-1 input-required">
                     <span>Alamat Rinci Sampai Tingkat Desa</span>
                     <em>(wajib)</em>
-                    <textarea placeholder="Alamat Pemilihan" name="lokasi"><?php echo $data->lokasi ?></textarea>
+                    <textarea placeholder="Alamat Pemilihan" name="lokasi" required><?php echo $data->lokasi ?></textarea>
                 </div>
 
                 <div class="input-style has-icon input-style-1 input-required">
                     <i class="input-icon fa fa-map-marker"></i>
                     <span>Lokasi Kecamatan</span>
                     <em>(wajib)</em>
-                    <input type="name" name="kecamatan" placeholder="Lokasi Kecamatan" value="<?php echo $data->kecamatan ?>">
+                    <input type="name" name="kecamatan" placeholder="Lokasi Kecamatan" value="<?php echo $data->kecamatan ?>" required>
                 </div>
 
                 <div class="input-style has-icon input-style-1 input-required">
                     <i class="input-icon fa fa-map-marker-alt"></i>
                     <span>Lokasi Kabupaten/Kota</span>
                     <em>(wajib)</em>
-                    <input type="name" name="kelurahan" placeholder="Lokasi Kabupaten/Kota" value="<?php echo $data->kelurahan ?>">
+                    <input type="name" name="kelurahan" placeholder="Lokasi Kabupaten/Kota" value="<?php echo $data->kelurahan ?>" required>
                 </div>
 
                 <p class="bottom-0 top-15">Waktu Pemilihan</p>
@@ -188,14 +188,14 @@
                     <i class="input-icon fa fa-play-circle"></i>
                     <span>Waktu Dimulai</span>
                     <em>(wajib)</em>
-                    <input type="datetime-local" name="start_date" placeholder="Waktu Dimulai" value="<?php echo $data->start_date ?>">
+                    <input type="datetime" name="start_date" placeholder="Waktu Dimulai" value="<?php echo $data->start_date ?>" required>
                 </div>
 
                 <div class="input-style has-icon input-style-1 input-required">
                     <i class="input-icon fa fa-stop-circle"></i>
                     <span>Waktu Selesai</span>
                     <em>(wajib)</em>
-                    <input type="datetime-local" name="end_date" placeholder="Waktu Selesai" value="<?php echo $data->end_date ?>">
+                    <input type="datetime" name="end_date" placeholder="Waktu Selesai" value="<?php echo $data->end_date ?>" required>
                 </div>
                 <!-- <div class="input-style input-style-1 input-required">
                     <span>Status Pemilihan</span>

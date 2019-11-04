@@ -1,7 +1,7 @@
 <?php $data = $dt->row(); ?>
 <div id="page">
         <div class="header header-fixed header-logo-app header-transparent">
-            <a href="index.html" class="header-title color-white">Edit Profil</a>
+            <a href="" class="header-title color-white">Edit Profil</a>
             <a href="#" class="header-icon header-icon-1 color-white" data-back-button><i
                     class="fas fa-arrow-left"></i></a>
             <a href="#" class="header-icon header-icon-2 color-white" data-toggle-theme><i class="fas fa-info"></i></a>

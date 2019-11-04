@@ -16,7 +16,7 @@ $dt = $data->row();
                 <div class="input-style input-style-1 input-required">
                     <span>Kategori Pemilihan</span>
                     <em><i class="fa fa-angle-down"></i></em>
-                    <select name="id_kategori">
+                    <select name="id_kategori" required>
                         <option value="<?php echo $dt->id_kategori ?>" selected><?php echo $dt->id_kategori ?></option>
                         <?php 
                         foreach ($this->db->get('kategori')->result() as $key => $value) {
@@ -30,21 +30,21 @@ $dt = $data->row();
                     <i class="input-icon fa fa-poll"></i>
                     <span>Isi Nama Pemilihan</span>
                     <em>(wajib)</em>
-                    <input type="name" name="nama_pemilihan" placeholder="Nama Pemilihan" value="<?php echo $dt->nama_pemilihan ?>">
+                    <input type="name" name="nama_pemilihan" placeholder="Nama Pemilihan" value="<?php echo $dt->nama_pemilihan ?>" required>
                 </div>
 
                 <div class="one-half">
                     <div class="input-style has-icon input-style-1 input-required bottom-30">
                         <i class="input-icon fa fa-user-cog"></i>
                         <span>Pilih Calon</span>
-                        <input type="number" name="jumlah_pemilihan" placeholder="Jmlh Calon Dipilih" value="<?php echo $dt->jumlah_pemilihan ?>">
+                        <input type="number" name="jumlah_pemilihan" placeholder="Jmlh Calon Dipilih" value="<?php echo $dt->jumlah_pemilihan ?>" required>
                     </div>
                 </div>
                 <div class="one-half last-column">
                     <div class="input-style has-icon input-style-1 input-required bottom-30">
                         <i class="input-icon fa fa-phone"></i>
                         <span>HP Admin [WhatsApp]</span>
-                        <input type="number" name="kontak_panitia" placeholder="Kontak Panitia" value="<?php echo $dt->kontak_panitia ?>">
+                        <input type="number" name="kontak_panitia" placeholder="Kontak Panitia" value="<?php echo $dt->kontak_panitia ?>" required>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -53,28 +53,28 @@ $dt = $data->row();
                     <i class="input-icon fa fa-building"></i>
                     <span>Nama Lembaga/Yayasan/Organisasi</span>
                     <em>(wajib)</em>
-                    <input type="name" name="penyelenggara" placeholder="Penyelenggara" value="<?php echo $dt->penyelenggara ?>">
+                    <input type="name" name="penyelenggara" placeholder="Penyelenggara" value="<?php echo $dt->penyelenggara ?>" required>
                 </div>
 
                 <p class="bottom-0 top-15">Lokasi Penyelenggaraan</p>
                 <div class="input-style has-icon input-style-1 input-required">
                     <span>Alamat Rinci Sampai Tingkat Desa</span>
                     <em>(wajib)</em>
-                    <textarea placeholder="Alamat Pemilihan" name="lokasi"><?php echo $dt->lokasi ?></textarea>
+                    <textarea placeholder="Alamat Pemilihan" name="lokasi" required><?php echo $dt->lokasi ?></textarea>
                 </div>
 
                 <div class="input-style has-icon input-style-1 input-required">
                     <i class="input-icon fa fa-map-marker"></i>
                     <span>Lokasi Kecamatan</span>
                     <em>(wajib)</em>
-                    <input type="name" name="kecamatan" placeholder="Lokasi Kecamatan" value="<?php echo $dt->kecamatan ?>">
+                    <input type="name" name="kecamatan" placeholder="Lokasi Kecamatan" value="<?php echo $dt->kecamatan ?>" required>
                 </div>
 
                 <div class="input-style has-icon input-style-1 input-required">
                     <i class="input-icon fa fa-map-marker-alt"></i>
                     <span>Lokasi Kabupaten/Kota</span>
                     <em>(wajib)</em>
-                    <input type="name" name="kelurahan" placeholder="Lokasi Kabupaten/Kota" value="<?php echo $dt->kelurahan ?>">
+                    <input type="name" name="kelurahan" placeholder="Lokasi Kabupaten/Kota" value="<?php echo $dt->kelurahan ?>" required>
                 </div>
 
                 <p class="bottom-0 top-15">Waktu Pemilihan</p>
@@ -82,25 +82,26 @@ $dt = $data->row();
                     <i class="input-icon fa fa-play-circle"></i>
                     <span>Waktu Dimulai</span>
                     <em>(wajib)</em>
-                    <input type="datetime-local" name="start_date" placeholder="Waktu Dimulai" value="<?php echo $dt->start_date ?>">
+                    <input type="datetime" name="start_date" placeholder="Waktu Dimulai" value="<?php echo $dt->start_date ?>" required>
                 </div>
 
                 <div class="input-style has-icon input-style-1 input-required">
                     <i class="input-icon fa fa-stop-circle"></i>
                     <span>Waktu Selesai</span>
                     <em>(wajib)</em>
-                    <input type="datetime-local" name="end_date" placeholder="Waktu Selesai" value="<?php echo $dt->end_date ?>">
+                    <input type="datetime" name="end_date" placeholder="Waktu Selesai" value="<?php echo $dt->end_date ?>" required>
                 </div>
-                <div class="input-style input-style-1 input-required">
+                <!-- <div class="input-style input-style-1 input-required">
                     <span>Status Pemilihan</span>
                     <em><i class="fa fa-angle-down"></i></em>
                     <select name="status">
                         <option value="<?php echo $dt->status ?>" selected><?php echo $dt->status ?></option>
-                        <!-- <option value="1">Aktif</option>
-                        <option value="2">Arsip</option> -->
+                        <option value="1">Aktif</option>
+                        <option value="2">Arsip</option>
                         <option value="3">Draft</option>
                     </select>
-                </div>
+                </div> -->
+                <input type="hidden" name="status" value="<?php echo $dt->status ?>">
 
                 <div class="clear"></div>
 

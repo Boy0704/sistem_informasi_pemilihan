@@ -72,34 +72,34 @@
                         <i class="input-icon fa fa-sort-numeric-down font-11"></i>
                         <span>Upload Foto</span>
                         <em>(wajib)</em>
-                        <input type="file" name="foto" placeholder="Nomor Calon" multiple accept='image/*' @change="onFileChange">
+                        <input type="file" name="foto" placeholder="Nomor Calon" multiple accept='image/*' @change="onFileChange" required>
                     </div>
                     <div class="input-style has-icon input-style-1 input-required">
                         <i class="input-icon fa fa-sort-numeric-down font-11"></i>
                         <span>Nomor Calon (co: 01 atau 001, AB, dll)</span>
                         <em>(wajib)</em>
-                        <input type="name" name="no_calon" placeholder="Nomor Calon" :value="data_calon.no_calon">
+                        <input type="text" name="no_calon" placeholder="Nomor Calon" :value="data_calon.no_calon" required>
                     </div>
                     <div class="input-style has-icon input-style-1 input-required">
                         <i class="input-icon fa fa-id-card font-11"></i>
                         <span>Nama Lengkap Calon</span>
                         <em>(wajib)</em>
-                        <input type="name" name="nama_calon" placeholder="Nama Calon" :value="data_calon.nama_calon">
+                        <input type="name" name="nama_calon" placeholder="Nama Calon" :value="data_calon.nama_calon" required>
                     </div>
                     <div class="input-style input-style-1 input-required">
                         <span class="input-style-1-inactive">Visi</span>
                         <em>(required)</em>
-                        <textarea placeholder="Visi" name="visi">{{data_calon.visi}}</textarea>
+                        <textarea placeholder="Visi" name="visi" required>{{data_calon.visi}}</textarea>
                     </div>
                     <div class="input-style input-style-1 input-required">
                         <span class="input-style-1-inactive">Misi</span>
                         <em>(required)</em>
-                        <textarea placeholder="Misi" name="misi">{{data_calon.misi}}</textarea>
+                        <textarea placeholder="Misi" name="misi" required>{{data_calon.misi}}</textarea>
                     </div>
                     <div class="input-style input-style-1 input-required">
                         <span class="input-style-1-inactive">Program Lainnya</span>
                         <em>(required)</em>
-                        <textarea placeholder="Program Lainnya" name="program_lain">{{data_calon.program_lain}}</textarea>
+                        <textarea placeholder="Program Lainnya" name="program_lain" required>{{data_calon.program_lain}}</textarea>
                         <input type="hidden" name="id_pemilihan" value="<?php echo $this->uri->segment(3) ?>" required>
                     </div>
                     <div class="clear"></div>

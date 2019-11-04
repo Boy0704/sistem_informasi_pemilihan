@@ -464,6 +464,21 @@ class App extends CI_Controller {
 			);
 			$this->load->view('f_index', $data);
     	} else {
+    		$config['upload_path'] = './front/images/user/';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['max_size']  = '10000';
+                $config['file_name']  = time();
+                
+                $this->load->library('upload', $config);
+                
+                if ( ! $this->upload->do_upload('foto')){
+                    echo $this->upload->display_errors();
+                }
+                else{
+                    $this->image = $this->upload->data('file_name');
+                }
+
+    			$_POST['foto'] = $this->image;
     		if ($_POST['password1'] == $_POST['password2']) {
     			unset($_POST['password2']);
     			$_POST['username'] = strtolower(str_replace(' ', '', $_POST['nama']));
