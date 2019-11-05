@@ -53,9 +53,10 @@
                     } else {
                      ?>
                     <div class="center-text">
-                        <a href="#" @click="infoModal('<?php echo $value->foto ?>','<?php echo $value->nama_calon ?>','<?php echo $value->visi ?>','<?php echo $value->misi ?>','<?php echo $value->program_lain ?>')" class="button button-xxs shadow-small button-round-small bg-blue2-dark"
+                        <button id="id_status<?php echo $value->id_calon ?>" class="button button-xxs shadow-small button-round-small bg-green2-dark" style="display: none;">ANDA TELAH MEMILIH</button>
+                        <a href="#" @click="infoModal('<?php echo $value->foto ?>','<?php echo $value->nama_calon ?>','<?php echo $value->visi ?>','<?php echo $value->misi ?>','<?php echo $value->program_lain ?>')" id="id_profil<?php echo $value->id_calon ?>" class="button button-xxs shadow-small button-round-small bg-blue2-dark"
                             data-menu="profil-calon">Profil</a>
-                        <a href="#" @click="pilih_calon('<?php echo $value->id_calon ?>','<?php echo $this->session->userdata('id_user') ?>')" id="id<?php echo $value->id_calon ?>" class="button button-xxs shadow-small button-round-small bg-green2-dark">Pilih</a>
+                        <a href="#" @click="pilih_calon('<?php echo $value->id_calon ?>','<?php echo $this->session->userdata('id_user') ?>','<?php echo $value->id_pemilihan ?>')" id="id<?php echo $value->id_calon ?>" class="button button-xxs shadow-small button-round-small bg-green2-dark">Pilih</a>
                     </div>
                     <?php } ?>
                     <div class="divider bottom-30"></div>
@@ -78,7 +79,7 @@
                             Telah Dipilih</td>
                         <td class="wd-70" style="line-height: 25px; padding: 0px; font-size: 11px;color: darkorange;">
                             Pilih Lagi</td>
-                        <td rowspan="2" @click="selesai_pilih()" style="padding:0px;"><a class="button tombol-selesai bg-green2-dark" >SELESAI</a></td>
+                        <td v-if="hideSelesai" rowspan="2" @click="selesai_pilih()" style="padding:0px;"><a class="button tombol-selesai bg-green2-dark">SELESAI</a></td>
                     </tr>
                     <tr>
                         <th class="data-pilih ">{{harus_pilih}}</th>
@@ -129,6 +130,8 @@
         harus_pilih : 3,
         telah_pilih : 0,
         pilih_lagi : 3,
+        hideSelesai: false,
+        status_pilih: false,
 
         BaseUrl: '<?php echo base_url() ?>'
     },
@@ -143,28 +146,40 @@
             this.misi = misi
             this.program = program
         },
-        pilih_calon: function(id_calon,id_pemilih) {
+        pilih_calon: function(id_calon,id_pemilih,id_pemilihan) {
+            if (this.telah_pilih != this.harus_pilih) {
+                
                 // axios.post(this.BaseUrl+'/app/simpan_pilih_calon', {
                 //     id_calon: id_calon,
                 //     id_pemilih: id_pemilih
                 // })
                 axios
-                  .get('<?php echo base_url() ?>app/simpan_pilih_calon/'+id_calon+'/'+id_pemilih)
+                  .get('<?php echo base_url() ?>app/simpan_pilih_calon/'+id_calon+'/'+id_pemilih+'/'+id_pemilihan)
                 .then(res => {
                      console.log(res)
                 })
                 .catch(error => {
                      console.log(error)
                 })
-            this.telah_pilih += 1
-            this.pilih_lagi = this.harus_pilih - this.telah_pilih
-            document.getElementById('id'+id_calon).style.display = 'none';
-            swal('Pilihan anda berhasil disimpan', 'klik Ok!', )
+
+                this.telah_pilih += 1
+                this.pilih_lagi = this.harus_pilih - this.telah_pilih
+                document.getElementById('id'+id_calon).style.display = 'none';
+                document.getElementById('id_profil'+id_calon).style.display = 'none';
+                document.getElementById('id_status'+id_calon).style.display = 'block';
+                
+                swal('Pilihan anda berhasil disimpan', 'klik Ok!', );
+            } else {
+                this.hideSelesai = true;
+                swal('Kuota Anda untuk memilih telah habis\n silahkan klik tombol selesai', 'klik Ok!', );
+            }
+                
         },
         selesai_pilih: function() {
             swal('terimah kasih telah melakukan pemilihan', 'klik Ok!', )
-            window.location="<?php echo base_url() ?>app"
+            window.location="<?php echo base_url() ?>app/logout"
         }
+        
     }
 })
 </script>

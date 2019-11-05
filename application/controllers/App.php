@@ -80,7 +80,7 @@ class App extends CI_Controller {
 		$this->load->view('f_index', $data);
     }
 
-    public function login_pemilih()
+    public function login_pemilih($id_pemilihan)
 	{ 
 		if ($_POST== NULL) {
 			$data = array(
@@ -108,7 +108,19 @@ class App extends CI_Controller {
 				// exit;
 				// $sess_data['username'] = $username;
 				// $this->session->set_userdata($sess_data);
-				redirect('app');
+
+				$cek_pemilihan = $this->db->get_where('detail_pilih', array('id_pemilih'=>$this->session->userdata('id_user'),'id_pemilihan'=>$id_pemilihan));
+				if ($cek_pemilihan->num_rows() >= 1) {
+					$this->session->unset_userdata('id_user');
+					$this->session->unset_userdata('nama');
+					$this->session->unset_userdata('username');
+					$this->session->unset_userdata('level');
+					$this->session->set_flashdata('message', alert_biasa('Gagal Melakukan Pemilihan!\n User ini telah melakukan pemilihan di sini','warning'));
+					redirect('app');
+				} else {
+					redirect('app/lakukan_pemilihan/'.$id_pemilihan,'refresh');
+				}
+				
 
 				// redirect('app/index');
 			} else {
@@ -118,10 +130,10 @@ class App extends CI_Controller {
 		}
     }
 
-    public function simpan_pilih_calon($id_calon,$id_pemilih)
+    public function simpan_pilih_calon($id_calon,$id_pemilih,$id_pemilihan)
     {
 
-    	$this->db->insert('detail_pilih', array('id_calon'=>$id_calon,'id_pemilih'=>$id_pemilih));
+    	$this->db->insert('detail_pilih', array('id_calon'=>$id_calon,'id_pemilih'=>$id_pemilih,'id_pemilihan'=>$id_pemilihan));
     	$result['sukses'] = 'sukses';
     	echo json_encode($result);
     }
@@ -204,7 +216,7 @@ class App extends CI_Controller {
     public function lakukan_pemilihan($id_pemilihan)
 	{
         if ($this->session->userdata('level') != 'pemilih') {
-            redirect('app/login_pemilih','refresh');
+            redirect('app/login_pemilih/'.$id_pemilihan,'refresh');
         }
 		$data = array(
 			'konten' => 'front/pilih_calon',
