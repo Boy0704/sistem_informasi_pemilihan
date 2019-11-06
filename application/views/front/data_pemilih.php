@@ -25,7 +25,7 @@
                 <div class="divider divider-margins top-5"></div>
                 <div class="profile-sub-heading">
                     <div class="fac fac-radio fac-default"><span></span>
-                        <a href="#" @click="clear()" class="button button-xxs shadow-small button-round-small bg-green2-dark"
+                        <a href="#" @click="type_input='tambah'" class="button button-xxs shadow-small button-round-small bg-green2-dark"
                             data-menu="menu-data-pemilih">Tambah</a>
                     </div>
                     <div class="fac fac-radio fac-green"><span></span>
