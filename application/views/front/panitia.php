@@ -11,7 +11,7 @@
             <div class="content">
                 <link rel="stylesheet" type="text/css" href="front/styles/sisp.css">
                 <!-- Profil -->
-                <a href="app/profil-admin.html"><img class="preload-image horizontal-center" width="80" src="front/images/empty.png"
+                <a href="app/profil_admin"><img class="preload-image horizontal-center" width="80" src="front/images/empty.png"
                     data-src="front/images/user/<?php echo get_data('admin','id_user',$this->session->userdata('id_user'),'foto') ?>" alt="img"></a>
                 <h1 class="bolder font-15 center-text top-5"><?php echo $this->session->userdata('nama'); ?></h1>
                 <!-- <p class="under-heading center-text color-highlight bottom-10">Leuwiliang - Kabupaten Bogor</p> -->
@@ -201,8 +201,8 @@
         </p>
         <div class="content left-50 right-50">
             <div class="one-half">
-                <a href="#"
-                    class="close-menu button button-center-large button-s shadow-large button-round-small bg-red2-dark">Ya</a>
+                <a :href="link6"
+                    class="button button-center-large button-s shadow-large button-round-small bg-red2-dark">Ya</a>
             </div>
             <div class="one-half last-column">
                 <a href="#"

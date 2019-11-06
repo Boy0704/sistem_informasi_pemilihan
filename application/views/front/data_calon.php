@@ -31,7 +31,7 @@
 
                     <!-- Tombol Simpan -->
                     <div class="one-half top-20 bottom-10" style="text-align: center">
-                        <a href="#" @click="type_input='tambah'" class="button button-s shadow-small bg-green1-dark" data-menu="menu-data-calon">+
+                        <a href="#" @click="clear()" class="button button-s shadow-small bg-green1-dark" data-menu="menu-data-calon">+
                             Tambah</a>
                     </div>
 
@@ -167,6 +167,10 @@
             const file = e.target.files[0];
             this.foto = URL.createObjectURL(file);
             this.url = true;
+        },
+        clear: function() {
+            this.type_input='tambah'
+            this.data_calon= []
         }
     }
 })

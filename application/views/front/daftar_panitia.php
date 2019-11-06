@@ -1,6 +1,6 @@
 <div id="page">
         <div class="header header-fixed header-logo-app header-dark">
-            <a href="index.html" class="header-title color-white">Daftar Akun Panitia</a>
+            <a href="" class="header-title color-white">Daftar Akun Panitia</a>
             <a href="#" class="header-icon header-icon-1 color-white" data-back-button><i
                     class="fas fa-arrow-left"></i></a>
             <a href="#" class="header-icon header-icon-2 color-white" data-toggle-theme><i class="fas fa-info"></i></a>
@@ -23,7 +23,7 @@
             <div class="cover-wrapper cover-no-buttons">
                 <div data-height="cover" class="caption bottom-0">
                     <div class="caption-center">
-                    <form action="" method="POST" multipart/form-data>
+                    <form action="" method="POST" enctype="multipart/form-data">
                         <div class="left-50 right-50 top-50">
                             <div>
                                 <p class="bottom-0 top-15 text-center">Tambah Foto</p>

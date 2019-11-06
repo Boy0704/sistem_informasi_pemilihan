@@ -2,7 +2,7 @@
         <div class="header header-fixed header-logo-app">
             <a href="#" class="header-title">Data Pemilihan</a>
             <a href="#" class="header-icon header-icon-1" data-back-button><i class="fas fa-arrow-left"></i></a>
-            <a href="admin.html" class="header-icon header-icon-3"><i class="fas fa-home"></i></a>
+            <a href="" class="header-icon header-icon-3"><i class="fas fa-home"></i></a>
             <a href="#" class="header-icon header-icon-2" data-toggle-theme><i class="fas fa-moon"></i></a>
             <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         </div>
@@ -123,7 +123,7 @@
                     <span>Kategori Pemilihan</span>
                     <em><i class="fa fa-angle-down"></i></em>
                     <select name="id_kategori" required>
-                        <option value="<?php echo $data->id_kategori ?>" selected><?php echo $data->id_kategori ?></option>
+                        <option value="<?php echo $data->id_kategori ?>" selected><?php echo get_data('kategori','id_kategori',$data->id_kategori,'kategori') ?></option>
                         <?php 
                         foreach ($this->db->get('kategori')->result() as $key => $value) {
                          ?>

@@ -3,7 +3,7 @@
             <a href="#" class="header-title">Pemilihan Aktif</a>
             <a href="#" class="header-icon header-icon-1" data-back-button><i class="fas fa-arrow-left"></i></a>
             <a href="#" class="header-icon header-icon-3" data-menu="cari-pemilihan-aktif"><i class="fas fa-search"></i></a>
-            <a href="index.html" class="header-icon header-icon-4"><i class="fas fa-home"></i></a>
+            <a href="" class="header-icon header-icon-4"><i class="fas fa-home"></i></a>
             <a href="#" class="header-icon header-icon-2" data-toggle-theme><i class="fas fa-moon"></i></a>
         </div>
 
@@ -79,7 +79,7 @@
         </div>
 
         <!-- Menu Lakukan Pemilihan REV -->
-        <div id="menu-pemilihan" class="menu menu-box-modal data-menu-height=" 320" data-menu-width="310"
+        <div id="menu-pemilihan" class="menu menu-box-modal" data-menu-height="320" data-menu-width="310"
             data-menu-effect="menu-over">
             <h4 class="center-text top-30">Pemilihan Ketua OSIS SMP Muhammadiyah Puraseda Rev</h4>
             <div class="divider-small"></div>

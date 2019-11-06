@@ -100,15 +100,18 @@ $rw = $data->row();
                                 <th>Status</th>
                             </tr>
                             <?php 
-                            foreach ($this->db->get('pemilih')->result() as $key => $rw) {
+                            $no = 1;
+                            foreach ($this->db->get_where('pemilih',array('id_pemilihan'=>$id_pemilihan))->result() as $key => $rw) {
                              ?>
                             <tr>
-                                <td>1</td>
+                                <td><?php echo $no; ?></td>
                                 <td class="tbl-kiri"><?php echo $rw->nama_pemilih ?></td>
                                 <td class="tbl-kiri"><?php echo $rw->kel ?></td>
-                                <td><i class="fa fa-check-square color-green1-dark"></i> Belum</td>
+                                <td><?php 
+                                echo status_pemilih($rw->id_pemilih,$rw->id_pemilihan);
+                                 ?></td>
                             </tr>
-                            <?php } ?>
+                            <?php $no++; } ?>
                         </table>
                         <!-- <div class="pagination">
                             <a href="#"><i class="fa fa-angle-left"></i></a>

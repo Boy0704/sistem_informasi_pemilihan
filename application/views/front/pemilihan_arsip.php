@@ -4,13 +4,13 @@
             <a href="#" class="header-icon header-icon-1" data-back-button><i class="fas fa-arrow-left"></i></a>
             <a href="#" class="header-icon header-icon-3" data-menu="cari-pemilihan-arsip"><i
                     class="fas fa-search"></i></a>
-            <a href="index.html" class="header-icon header-icon-4"><i class="fas fa-home"></i></a>
+            <a href="" class="header-icon header-icon-4"><i class="fas fa-home"></i></a>
             <a href="#" class="header-icon header-icon-2" data-toggle-theme><i class="fas fa-moon"></i></a>
         </div>
 
         <div class="page-content header-clear-medium">
             <div class="content">
-                <link rel="stylesheet" type="text/css" href="styles/sisp.css">
+                <link rel="stylesheet" type="text/css" href="front/styles/sisp.css">
                 <h5 class="bold top-10 bottom-10 center-text">
                     <i class="fa fa-archive color-dark1-light fa-4x"></i></h5>
                 <p class="under-heading center-text color-theme bottom-5 top-10"

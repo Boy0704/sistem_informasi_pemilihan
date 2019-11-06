@@ -80,6 +80,18 @@ class App extends CI_Controller {
 		$this->load->view('f_index', $data);
     }
 
+    public function reset_pemilihan($id_pemilihan)
+    {
+    	$this->db->where('id_pemilihan', $id_pemilihan);
+    	$this->db->delete('detail_pilih');
+    	$this->session->set_flashdata('message', alert_biasa('Berhasil Reset Pemilihan','success'));
+    	?>
+    	<script type="text/javascript">
+    		window.history.back();
+    	</script>
+    	<?php
+    }
+
     public function login_pemilih($id_pemilihan)
 	{ 
 		if ($_POST== NULL) {
@@ -282,7 +294,7 @@ class App extends CI_Controller {
 
 				$_POST['foto'] = $this->image;
 				//cek no calon
-				$cek_no_calon = $this->db->get_where('calon', array('no_calon'=>$_POST['no_calon']))->num_rows();
+				$cek_no_calon = $this->db->get_where('calon', array('no_calon'=>$_POST['no_calon'],'id_pemilihan'=>$_POST['id_pemilihan']))->num_rows();
 				if ($cek_no_calon == 1 ) {
 					$this->session->set_flashdata('message', alert_biasa('no calon '.$_POST['no_calon'].' telah ada !','info'));
 					redirect('app/data_calon/'.$id);

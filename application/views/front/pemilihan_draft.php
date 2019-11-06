@@ -3,7 +3,7 @@
             <a href="#" class="header-title">Draft Pemilihan</a>
             <a href="#" class="header-icon header-icon-1" data-back-button><i class="fas fa-arrow-left"></i></a>
             <a href="#" class="header-icon header-icon-3" data-menu="cari-pemilihan-draft"><i class="fas fa-search"></i></a>
-            <a href="index.html" class="header-icon header-icon-4"><i class="fas fa-home"></i></a>
+            <a href="" class="header-icon header-icon-4"><i class="fas fa-home"></i></a>
             <a href="#" class="header-icon header-icon-2" data-toggle-theme><i class="fas fa-moon"></i></a>
         </div>
 

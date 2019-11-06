@@ -17,7 +17,7 @@ $dt = $data->row();
                     <span>Kategori Pemilihan</span>
                     <em><i class="fa fa-angle-down"></i></em>
                     <select name="id_kategori" required>
-                        <option value="<?php echo $dt->id_kategori ?>" selected><?php echo $dt->id_kategori ?></option>
+                        <option value="<?php echo $dt->id_kategori ?>" selected><?php echo get_data('kategori','id_kategori',$dt->id_kategori,'kategori') ?></option>
                         <?php 
                         foreach ($this->db->get('kategori')->result() as $key => $value) {
                          ?>
