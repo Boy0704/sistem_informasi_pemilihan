@@ -319,7 +319,7 @@ class App extends CI_Controller {
 				
 				unset($_POST['type_input']);
 				$config['upload_path'] = './front/images/calon/';
-	            $config['allowed_types'] = 'gif|jpg|png';
+	            $config['allowed_types'] = 'gif|jpg|png|jpeg';
 	            $config['max_size']  = '10000';
 	            $config['file_name']  = time();
 	            
