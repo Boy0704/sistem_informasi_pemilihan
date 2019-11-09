@@ -42,18 +42,18 @@
                 <div class="one-half">
                     <a href="#">
                         <img data-src="front/images/calon/<?php echo $value->foto ?>" src="front/images/empty.png" alt="img"
-                            class="preload-image responsive-image round-small shadow-large bottom-20">
+                            class="preload-image responsive-image round-small shadow-large bottom-20 crop" style="width: 200px; height: 200px;">
                     </a>
                     <div class="nama-calon-sdg color-theme"><?php echo $value->nama_calon ?></div>
                     <span class="nomer-besar"><?php echo $value->no_calon ?></span>
                     <?php 
                     $cek = $this->db->get_where('detail_pilih', array('id_pemilih'=>$this->session->userdata('id_user'),'id_calon'=>$value->id_calon));
                     if ($cek->num_rows() > 0) {
-                        echo '<a class="button button-full button-m shadow-large button-round-small bg-highlight top-30 bottom-0">ANDA TELAH MEMILIH</a>';
+                        echo '<a class="button button-full button-m shadow-large button-round-small bg-highlight bottom-0">ANDA TELAH MEMILIH</a>';
                     } else {
                      ?>
                     <div class="center-text">
-                        <a id="id_status<?php echo $value->id_calon ?>" class="button button-full button-m shadow-large button-round-small bg-highlight top-30 bottom-0" style="display: none;">ANDA TELAH MEMILIH</a>
+                        <a id="id_status<?php echo $value->id_calon ?>" class="button button-full button-m shadow-large button-round-small bg-highlight bottom-0" style="display: none;">ANDA TELAH MEMILIH</a>
                         <a href="#" @click="infoModal('<?php echo $value->foto ?>','<?php echo $value->nama_calon ?>','<?php echo $value->visi ?>','<?php echo $value->misi ?>','<?php echo $value->program_lain ?>')" id="id_profil<?php echo $value->id_calon ?>" class="button button-xxs shadow-small button-round-small bg-blue2-dark"
                             data-menu="profil-calon">Profil</a>
                         <a href="#" @click="pilih_calon('<?php echo $value->id_calon ?>','<?php echo $this->session->userdata('id_user') ?>','<?php echo $value->id_pemilihan ?>')" id="id<?php echo $value->id_calon ?>" class="button button-xxs shadow-small button-round-small bg-green2-dark">Pilih</a>
@@ -190,8 +190,11 @@
                       swal("Silahkan pilih yang lain!");
                   }
                 });
-
-
+                
+                if (this.telah_pilih == this.harus_pilih) {
+                    this.hideSelesai = true;
+                    console.log(this.telah_pilih);
+                }
                 
                 
                 // swal('Pilihan anda berhasil disimpan', 'klik Ok!', );

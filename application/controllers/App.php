@@ -110,6 +110,8 @@ class App extends CI_Controller {
 			// $hashed = '$2y$10$LO9IzV0KAbocIBLQdgy.oeNDFSpRidTCjXSQPK45ZLI9890g242SG';
 			$cek_user = $this->db->query("SELECT * FROM pemilih WHERE nama_pemilih='$username' and kode_akun='$password' and id_pemilihan='$id_pemilihan' ");
 			// if (password_verify($password, $hashed)) {
+
+			// cek_query();
 			if ($cek_user->num_rows() > 0) {
 				foreach ($cek_user->result() as $row) {
 					
