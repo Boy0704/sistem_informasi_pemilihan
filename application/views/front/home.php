@@ -12,8 +12,8 @@
             <div class="double-slider owl-carousel owl-no-dots">
                 <?php 
                 $this->db->limit(5);
+                $this->db->where('status', 1);
                 foreach ($this->db->get('pemilihan')->result() as $rw) {
-
                  ?>
                 <!-- <a href="#" class="sisp-slide-1">
                     <img src="front/images/pictures/17m.jpg" class="responsive-image" alt="">
@@ -31,7 +31,7 @@
                             <h4 class="color-white center-text uppercase ultrabold bottom-40"><?php echo $rw->nama_pemilihan ?></h4>
                         </div>
                         <div class="caption-overlay bg-gradient"></div>
-                        <img class="caption-image owl-lazy" data-src="front/images/pictures/13l.jpg">
+                        <img class="caption-image owl-lazy" data-src="front/images/pemilihan/<?php echo $rw->foto ?>" style=" height: 250px;">
                     </div>
                     
                 </div>
@@ -45,13 +45,14 @@
             <div class="content">
                 <div class="one-half">
                     <?php 
+                    $this->db->where('status', 1);
                     foreach ($this->db->get('pemilihan', 2, 0)->result() as $rw) {
 
                      ?>
                     <div class="sisp-col-item">
                         <a href="#" @click="infoModal('<?php echo $rw->id_pemilihan ?>','<?php echo $rw->nama_pemilihan ?>','<?php echo $rw->kelurahan ?>')" data-menu="menu-pemilihan">
                             <img class="preload-image shadow-large round-small" src="front/images/empty.png"
-                                data-src="front/images/pictures/8s.jpg" class="responsive-image" alt="img">
+                                data-src="front/images/pemilihan/<?php echo $rw->foto ?>" class="responsive-image" alt="img" style="width: 200px;">
                             <em class="bg-aktif"> <?php echo selisih_waktu($rw->start_date) ?></em>
                             <strong><?php echo $rw->nama_pemilihan ?></strong>
                         </a>
@@ -61,13 +62,14 @@
                 </div>
                 <div class="one-half last-column">
                     <?php 
-                    foreach ($this->db->get('pemilihan', 3, 4)->result() as $rw) {
-
+                    $this->db->where('status', 1);
+                    foreach ($this->db->get('pemilihan', 2, 2)->result() as $rw) {
+                    // cek_query();
                      ?>
                     <div class="sisp-col-item">
                         <a href="#" data-menu="menu-pemilihan">
                             <img class="preload-image shadow-large round-small" src="front/images/empty.png"
-                                data-src="front/images/pictures/7s.jpg" class="responsive-image" alt="img">
+                                data-src="front/images/pemilihan/<?php echo $rw->foto ?>" class="responsive-image" alt="img" style="width: 200px;">
                             <em class="bg-aktif"><?php echo selisih_waktu($rw->start_date) ?></em>
                             <strong><?php echo $rw->nama_pemilihan ?></strong>
                         </a>
@@ -84,26 +86,27 @@
             </div>
 
             <div class="content top-30">
+                <?php 
+                $this->db->limit(5);
+                $this->db->where('status', 2);
+                foreach ($this->db->get('pemilihan')->result() as $rw) {
+
+                 ?>
+
                 <div class="sisp-list-item">
                     <a href="#">
                         <img class="preload-image shadow-large round-small" src="front/images/empty.png"
-                            data-src="front/images/pictures/8s.jpg" alt="img">
-                        <strong>Pemilihan Ketua Kelas IX-4 SD Baranangsiang Pagi</strong>
+                            data-src="front/images/pemilihan/<?php echo $rw->foto ?>" alt="img">
+                        <strong><?php echo $rw->nama_pemilihan ?></strong>
                     </a>
-                    <span><i class="fas fa-map-marked-alt"></i>Kabupaten Bogor <a href="#"
+                    <span><i class="fas fa-map-marked-alt"></i><?php echo $rw->kelurahan ?> <a href="#"
                             class="bg-arsip">Arsip</a></span>
                 </div>
-                <div class="sisp-list-item no-border bottom-0">
-                    <a href="#">
-                        <img class="preload-image shadow-large round-small" src="front/images/empty.png"
-                            data-src="front/images/pictures/5s.jpg" alt="img">
-                        <strong>Polling Siswa Lulusan Terbaik Angkatan 25 SMA Negeri 25 </strong>
-                    </a>
-                    <span><i class="fas fa-map-marked-alt"></i>Kota Garut <a href="#" class="bg-arsip">Arsip</a></span>
-                </div>
+                
+                <?php } ?>
 
                 <div class="clear"></div>
-                <a href="pemilihan-arsip.html"
+                <a href="app/pemilihan_arsip"
                     class="button button-s button-full button-round-medium bg-arsip-lg shadow-large">LIHAT
                     SEMUA ARSIP PEMILIHAN</a>
                 <br><br>

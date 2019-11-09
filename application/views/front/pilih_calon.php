@@ -2,7 +2,7 @@
 <div id="page">
         <div class="header header-fixed header-logo-app">
             <a href="#" class="header-title">Pilih Calon Sesuai Kuota</a>
-            <a href="#" class="header-icon header-icon-1" data-back-button><i class="fas fa-arrow-left"></i></a>
+            <a href="app/logout" class="header-icon header-icon-1" data-back-button><i class="fas fa-arrow-left"></i></a>
             <a href="#" class="header-icon header-icon-2" data-toggle-theme><i class="fas fa-moon"></i></a>
         </div>
         <div class="toasts">
@@ -41,7 +41,7 @@
 
                 <div class="one-half">
                     <a href="#">
-                        <img data-src="front/images/pictures/29t.jpg" src="front/images/empty.png" alt="img"
+                        <img data-src="front/images/calon/<?php echo $value->foto ?>" src="front/images/empty.png" alt="img"
                             class="preload-image responsive-image round-small shadow-large bottom-20">
                     </a>
                     <div class="nama-calon-sdg color-theme"><?php echo $value->nama_calon ?></div>
@@ -49,11 +49,11 @@
                     <?php 
                     $cek = $this->db->get_where('detail_pilih', array('id_pemilih'=>$this->session->userdata('id_user'),'id_calon'=>$value->id_calon));
                     if ($cek->num_rows() > 0) {
-                        echo '<button class="button button-xxs shadow-small button-round-small bg-green2-dark">ANDA TELAH MEMILIH</button>';
+                        echo '<a class="button button-full button-m shadow-large button-round-small bg-highlight top-30 bottom-0">ANDA TELAH MEMILIH</a>';
                     } else {
                      ?>
                     <div class="center-text">
-                        <button id="id_status<?php echo $value->id_calon ?>" class="button button-xxs shadow-small button-round-small bg-green2-dark" style="display: none;">ANDA TELAH MEMILIH</button>
+                        <a id="id_status<?php echo $value->id_calon ?>" class="button button-full button-m shadow-large button-round-small bg-highlight top-30 bottom-0" style="display: none;">ANDA TELAH MEMILIH</a>
                         <a href="#" @click="infoModal('<?php echo $value->foto ?>','<?php echo $value->nama_calon ?>','<?php echo $value->visi ?>','<?php echo $value->misi ?>','<?php echo $value->program_lain ?>')" id="id_profil<?php echo $value->id_calon ?>" class="button button-xxs shadow-small button-round-small bg-blue2-dark"
                             data-menu="profil-calon">Profil</a>
                         <a href="#" @click="pilih_calon('<?php echo $value->id_calon ?>','<?php echo $this->session->userdata('id_user') ?>','<?php echo $value->id_pemilihan ?>')" id="id<?php echo $value->id_calon ?>" class="button button-xxs shadow-small button-round-small bg-green2-dark">Pilih</a>
@@ -153,22 +153,48 @@
                 //     id_calon: id_calon,
                 //     id_pemilih: id_pemilih
                 // })
-                axios
-                  .get('<?php echo base_url() ?>app/simpan_pilih_calon/'+id_calon+'/'+id_pemilih+'/'+id_pemilihan)
-                .then(res => {
-                     console.log(res)
-                })
-                .catch(error => {
-                     console.log(error)
-                })
 
-                this.telah_pilih += 1
-                this.pilih_lagi = this.harus_pilih - this.telah_pilih
-                document.getElementById('id'+id_calon).style.display = 'none';
-                document.getElementById('id_profil'+id_calon).style.display = 'none';
-                document.getElementById('id_status'+id_calon).style.display = 'block';
+                swal("Apakah kamu yakin akan memilih calon ini ?", {
+                  buttons: {
+                    cancel: "Tidak Yakin!",
+                    catch: {
+                      text: "Ya, Saya yakin!",
+                      value: "yakin",
+                    },
+                  },
+                })
+                .then((value) => {
+                  switch (value) {
+                 
+                    case "yakin":
+
+                        axios
+                          .get('<?php echo base_url() ?>app/simpan_pilih_calon/'+id_calon+'/'+id_pemilih+'/'+id_pemilihan)
+                        .then(res => {
+                             console.log(res)
+                        })
+                        .catch(error => {
+                             console.log(error)
+                        })
+
+                        this.telah_pilih += 1
+                        this.pilih_lagi = this.harus_pilih - this.telah_pilih
+                        document.getElementById('id'+id_calon).style.display = 'none';
+                        document.getElementById('id_profil'+id_calon).style.display = 'none';
+                        document.getElementById('id_status'+id_calon).style.display = 'block';
+
+                      swal("Terima kasih!", "Pilihan anda berhasil disimpan!", "success");
+                      break;
+                 
+                    default:
+                      swal("Silahkan pilih yang lain!");
+                  }
+                });
+
+
                 
-                swal('Pilihan anda berhasil disimpan', 'klik Ok!', );
+                
+                // swal('Pilihan anda berhasil disimpan', 'klik Ok!', );
             } else {
                 this.hideSelesai = true;
                 swal('Kuota Anda untuk memilih telah habis\n silahkan klik tombol selesai', 'klik Ok!', );

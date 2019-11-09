@@ -21,24 +21,27 @@
 
             <div class="content top-15">
                 <?php 
+                if ($this->db->get_where('pemilihan', array('status'=>3))->num_rows() == NULL ) {
+                    echo '<a href="#" class="button button-full button-m shadow-large button-round-small bg-highlight top-30 bottom-0">Belum Ada Draft Pemilihan</a>';
+                } else {
                 foreach ($this->db->get_where('pemilihan', array('status'=>3))->result() as $key => $rw) {
                  
                  ?>
                 <div class="sisp-list-item bottom-10">
                     <a href="#" @click="infoModal('<?php echo $rw->id_pemilihan ?>','<?php echo $rw->nama_pemilihan ?>','<?php echo $rw->kelurahan ?>')" data-menu="menu-pemilihan-draft">
                         <img class="preload-image shadow-small round-small" src="front/images/empty.png"
-                            data-src="front/images/pictures/8s.jpg" alt="img">
+                            data-src="<?php echo $foto = ($rw->foto == null) ? '' : 'front/images/pemilihan/'.$rw->foto ?> " alt="img">
                         <strong>
                             <?php echo $rw->nama_pemilihan ?>
                         </strong>
                     </a>
                     <span>
                         <a href="#" class="bg-draft">Draft</a>
-                        <i class="fas fa-map-marked-alt"></i>Kota Garut
+                        <i class="fas fa-map-marked-alt"></i><?php echo $rw->kelurahan ?>
                     </span>
                 </div>
                 
-            <?php } ?>
+            <?php } } ?>
                 <div class="clear"></div>
             </div>
         </div>
@@ -70,7 +73,7 @@
                     <span class="font-13">Lihat Status Pemilih</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="https://wa.me/<0808080808>" class="">
+                <a :href="link5" class="">
                     <i class="fas fa-comment-dots fa-lg" style="color:gray"></i>
                     <span class="font-13">Kontak Panitia</span>
                     <i class="fa fa-angle-right"></i>
@@ -108,6 +111,7 @@
         link2 : '',
         link3 : '',
         link4 : '',
+        link5 : '',
     },
     computed:{
         
@@ -120,6 +124,7 @@
             this.link2 = 'app/lakukan_pemilihan/'+id_p
             this.link3 = 'app/lihat_hasil/'+id_p
             this.link4 = 'app/lihat_status_pemilih/'+id_p
+            this.link5 = 'app/kontak_panitia/'+id_p
         }
     }
 })

@@ -21,91 +21,69 @@
             <div class="divider divider-margins bottom-15"></div>
 
             <div class="content top-15">
+                <?php 
+                if ($this->db->get_where('pemilihan', array('status'=>2))->num_rows() == NULL ) {
+                    echo '<a href="#" class="button button-full button-m shadow-large button-round-small bg-highlight top-30 bottom-0">Belum Ada Arsip Pemilihan</a>';
+                } else {
+                foreach ($this->db->get_where('pemilihan', array('status'=>2))->result() as $key => $rw) {
+                 
+                 ?>
                 <div class="sisp-list-item bottom-10">
-                    <a href="#" data-menu="menu-pemilihan-arsip">
-                        <img class="preload-image shadow-small round-small" src="images/empty.png"
-                            data-src="images/pictures/5s.jpg" alt="img">
+                    <a href="#" @click="infoModal('<?php echo $rw->id_pemilihan ?>','<?php echo $rw->nama_pemilihan ?>','<?php echo $rw->kelurahan ?>')" data-menu="menu-pemilihan-draft">
+                        <img class="preload-image shadow-small round-small" src="front/images/empty.png"
+                            data-src="<?php echo $foto = ($rw->foto == null) ? '' : 'front/images/pemilihan/'.$rw->foto ?> " alt="img">
                         <strong>
-                            Polling Siswa Lulusan Terbaik Angkatan 25 SMA Negeri 25
+                            <?php echo $rw->nama_pemilihan ?>
                         </strong>
                     </a>
                     <span>
-                        <a href="#" class="bg-draft">Draft</a>
-                        <i class="fas fa-map-marked-alt"></i>Kota Garut
+                        <a href="#" class="bg-green1">Aktif</a>
+                        <i class="fas fa-map-marked-alt"></i><?php echo $rw->kelurahan ?>
                     </span>
                 </div>
-                <div class="sisp-list-item bottom-10">
-                    <a href="#" data-menu="menu-pemilihan-arsip">
-                        <img class="preload-image shadow-small round-small" src="images/empty.png"
-                            data-src="images/pictures/5s.jpg" alt="img">
-                        <strong>
-                            Polling Siswa Lulusan Terbaik Angkatan 25 SMA Negeri 25
-                        </strong>
-                    </a>
-                    <span>
-                        <a href="#" class="bg-draft">Draft</a>
-                        <i class="fas fa-map-marked-alt"></i>Kota Garut
-                    </span>
-                </div>
-                <div class="sisp-list-item bottom-10">
-                    <a href="#" data-menu="menu-pemilihan-arsip">
-                        <img class="preload-image shadow-small round-small" src="images/empty.png"
-                            data-src="images/pictures/5s.jpg" alt="img">
-                        <strong>
-                            Polling Siswa Lulusan Terbaik Angkatan 25 SMA Negeri 25
-                        </strong>
-                    </a>
-                    <span>
-                        <a href="#" class="bg-draft">Draft</a>
-                        <i class="fas fa-map-marked-alt"></i>Kota Garut
-                    </span>
-                </div>
-
-                <div class="sisp-list-item bottom-10">
-                    <a href="#" data-menu="menu-pemilihan-arsip">
-                        <img class="preload-image shadow-small round-small" src="images/empty.png"
-                            data-src="images/pictures/5s.jpg" alt="img">
-                        <strong>
-                            Polling Siswa Lulusan Terbaik Angkatan 25 SMA Negeri 25
-                        </strong>
-                    </a>
-                    <span>
-                        <a href="#" class="bg-draft">Draft</a>
-                        <i class="fas fa-map-marked-alt"></i>Kota Garut
-                    </span>
-                </div>
-
+                
+            <?php } } ?>
                 <div class="clear"></div>
             </div>
         </div>
 
-        <!-- Menu Pemilihan Arsip REV -->
-        <div id="menu-pemilihan-arsip" class="menu menu-box-modal data-menu-height=" 320" data-menu-width="310"
+        <!-- Menu Klik Daft Pemilihan REV -->
+        <div id="menu-pemilihan-draft" class="menu menu-box-modal" data-menu-height="320" data-menu-width="310"
             data-menu-effect="menu-over">
-            <h4 class="center-text top-30">Pemilihan Ketua OSIS SMP Muhammadiyah Puraseda Rev</h4>
+            <h4 class="center-text top-30">{{judul}}</h4>
             <div class="divider-small"></div>
-            <h6 class="center-text">Kabupaten Bogor</h6>
+            <h6 class="center-text">{{kab}}</h6>
             <div class="link-list link-list-1 content bottom-0">
-                <a href="info-pemilihan.html" class="">
+                <a :href="link1" class="">
                     <i class="fas fa-info-circle fa-lg"></i>
                     <span class="font-13">Informasi</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="lihat-hasil.html" class="">
+                <!-- <a :href="link2" class="">
+                    <i class="fas fa-edit fa-lg" style="color:green"></i>
+                    <span class="font-13">Lakukan Simulasi Pemilihan</span>
+                    <i class="fa fa-angle-right"></i>
+                </a> -->
+                <a :href="link3" class="">
                     <i class="fas fa-poll fa-lg" style="color:gray"></i>
                     <span class="font-13">Lihat Hasil Pemilihan</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="status-pemilih.html" class="">
+                <a :href="link4" class="">
                     <i class="fas fa-user-check fa-lg" style="color:gray"></i>
                     <span class="font-13">Lihat Status Pemilih</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <a :href="link5" class="">
+                    <i class="fas fa-comment-dots fa-lg" style="color:gray"></i>
+                    <span class="font-13">Kontak Panitia</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
             </div>
         </div>
 
-        <!-- Cari Arsip Pemilihan -->
-        <div id="cari-pemilihan-arsip" class="menu menu-box-bottom" data-menu-height="230" data-menu-effect="menu-over">
+        <!-- Cari Pemilihan Draft -->
+        <div id="cari-pemilihan-draft" class="menu menu-box-bottom" data-menu-height="230" data-menu-effect="menu-over">
             <div class="content">
                 <p class="font-11 under-heading bottom-20 top-20">
                     Ketikan keyword untuk mencari.
@@ -117,9 +95,38 @@
                     <input type="text" placeholder="Ketik disini">
                 </div>
                 <a href="#" class="button button-full button-m shadow-large button-round-small bg-highlight top-20">CARI
-                    Arsip Pemilihan</a>
+                    Aktif Pemilihan</a>
             </div>
         </div>
 
         <div class="menu-hider"></div>
     </div>
+
+    <script type="text/javascript">
+    var vm = new Vue({
+    el: "#page",
+    data : {
+        judul : '',
+        kab : '',
+        link1 : '',
+        link2 : '',
+        link3 : '',
+        link4 : '',
+        link5: ''
+    },
+    computed:{
+        
+    }, 
+    methods:{
+        infoModal: function(id_p,judul,kab) {
+            this.judul = judul
+            this.kab = kab
+            this.link1 = 'app/info_pemilihan/'+id_p
+            this.link2 = 'app/lakukan_pemilihan/'+id_p
+            this.link3 = 'app/lihat_hasil/'+id_p
+            this.link4 = 'app/lihat_status_pemilih/'+id_p
+            this.link5 = 'app/kontak_panitia/'+id_p
+        }
+    }
+})
+</script>

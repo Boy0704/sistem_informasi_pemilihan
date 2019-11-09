@@ -43,9 +43,9 @@ class App extends CI_Controller {
 
     public function bantuan()
 	{
-        if ($this->session->userdata('username') == '') {
-            redirect('app/login','refresh');
-        }
+        // if ($this->session->userdata('username') == '') {
+        //     redirect('app/login','refresh');
+        // }
 		$data = array(
 			'konten' => 'front/bantuan',
             'judul_page' => 'Bantuan',
@@ -55,6 +55,9 @@ class App extends CI_Controller {
 
     public function pemilihan_draft()
 	{ 
+		if ($this->session->userdata('level') !='') {
+			$this->logout();
+		}
 		$data = array(
 			'konten' => 'front/pemilihan_draft',
             'judul_page' => 'pemilihan_draft',
@@ -105,7 +108,7 @@ class App extends CI_Controller {
 			$password = $this->input->post('password');
 
 			// $hashed = '$2y$10$LO9IzV0KAbocIBLQdgy.oeNDFSpRidTCjXSQPK45ZLI9890g242SG';
-			$cek_user = $this->db->query("SELECT * FROM pemilih WHERE nama_pemilih='$username' and kode_akun='$password' ");
+			$cek_user = $this->db->query("SELECT * FROM pemilih WHERE nama_pemilih='$username' and kode_akun='$password' and id_pemilihan='$id_pemilihan' ");
 			// if (password_verify($password, $hashed)) {
 			if ($cek_user->num_rows() > 0) {
 				foreach ($cek_user->result() as $row) {
@@ -136,8 +139,8 @@ class App extends CI_Controller {
 
 				// redirect('app/index');
 			} else {
-				$this->session->set_flashdata('message', alert_biasa('Gagal Login!\n username atau password kamu salah','warning'));
-				redirect('app/login_pemilih','refresh');
+				$this->session->set_flashdata('message', alert_biasa('Gagal Login!\n username atau password kamu salah \n atau kamu tidak memiliki akses memilih disini !','warning'));
+				redirect('app/login_pemilih/'.$id_pemilihan,'refresh');
 			}
 		}
     }
@@ -235,9 +238,15 @@ class App extends CI_Controller {
     public function tutup_pemilihan($id_pemilihan)
     {
     	$this->db->where('id_pemilihan', $id_pemilihan);
-    	$this->db->update('pemilihan', array('status'=>3));
+    	$this->db->update('pemilihan', array('status'=>2));
     	$this->session->set_flashdata('message', alert_biasa('Berhasil di non-aktifkan!','success'));
 		redirect('app','refresh');	
+    }
+
+    public function kontak_panitia($id_pemilihan)
+    {
+    	$kontak = $this->db->get('pemilihan', array('id_pemilihan'=>$id_pemilihan))->row();
+    	redirect('https://wa.me/<'.$kontak->kontak_panitia.'>','refresh');
     }
 
     public function lakukan_pemilihan($id_pemilihan)

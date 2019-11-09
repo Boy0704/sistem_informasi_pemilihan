@@ -2,7 +2,7 @@
         <div class="header header-fixed header-logo-app">
             <a href="#" class="header-title">Bantuan</a>
             <a href="app" class="header-icon header-icon-1" data-back-button><i class="fas fa-arrow-left"></i></a>
-            <a href="admin.html" class="header-icon header-icon-3"><i class="fas fa-home"></i></a>
+            <a href="" class="header-icon header-icon-3"><i class="fas fa-home"></i></a>
             <a href="#" class="header-icon header-icon-2" data-toggle-theme><i class="fas fa-moon"></i></a>
         </div>
 
@@ -77,7 +77,7 @@
                     </p>
                 </div>
 
-                <a href="#" class="button button-full button-s shadow-large button-round-small bg-green2-dark top-20">Kontak Admin Sispanlih</a>
+                <a href="https://wa.me/<<?php echo setting('no_telp') ?>>" target="_blank" class="button button-full button-s shadow-large button-round-small bg-green2-dark top-20">Kontak Admin Sispanlih</a>
 
             </div>
 

@@ -222,3 +222,17 @@ function ket_lulus($total)
 		return "<span class=\"label label-danger\">TIDAK LULUS</span> ";
 	}
 }
+
+function cek_query()
+{
+	$CI 	=& get_instance();
+	print_r($CI->db->last_query()); 
+	exit();
+}
+
+function setting($field)
+{
+	$CI 	=& get_instance();
+	$data = $CI->db->get_where('setting', array('id_setting'=>1))->row_array();
+	return $data[$field];
+}
