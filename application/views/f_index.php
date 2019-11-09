@@ -14,11 +14,23 @@
     <link rel="stylesheet" type="text/css" href="front/styles/style.css">
     <link rel="stylesheet" type="text/css" href="front/styles/framework.css">
     <link rel="stylesheet" type="text/css" href="front/fonts/css/fontawesome-all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css">
+    <!-- mengatur gambar -->
+    <style>
+    .fill {object-fit: fill;}
+    .contain {object-fit: contain;}
+    .cover {object-fit: cover;}
+    .scale-down {object-fit: scale-down;}
+    .none {object-fit: none;}
+    </style>
+    <!-- // mengatur gambar -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script type="text/javascript" src="front/scripts/jquery.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
 </head>
 
 <body class="theme-light" data-highlight="blue2">

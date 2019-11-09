@@ -5,7 +5,7 @@ function status_pemilih($id_pemilih,$id_pemilihan)
 	$CI =& get_instance();
 	$data = $CI->db->get_where('detail_pilih',array('id_pemilih'=>$id_pemilih,'id_pemilihan'=>$id_pemilihan))->num_rows();
 	$status = '';
-	if ($data = 1) {
+	if ($data > 0) {
 		$status = '<i class="fa fa-check-square color-green1-dark"></i> Sudah';
 	} else {
 		$status = '<i class="fa fa-check-square color-red1-dark"></i> Belum';

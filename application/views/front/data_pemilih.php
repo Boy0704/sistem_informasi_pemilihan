@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <div id="page">
         <div class="header header-fixed header-logo-app">
             <a href="#" class="header-title">Data Pemilih</a>
@@ -41,14 +43,17 @@
                 </div>
                 <div class="divider divider-margins top-5"></div>
                 <div class="content">
-                    <table class="table-borders">
-                        <tr>
-                            <th>No</th>
-                            <th class="tbl-kiri2">Nama Pemilih</th>
-                            <th class="tbl-kiri2">Kel</th>
-                            <th class="tbl-kiri2">Kode Akun</th>
-                            <th>Opsi</th>
-                        </tr>
+                    <table class="table-borders" id="example">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th class="tbl-kiri2">Nama Pemilih</th>
+                                <th class="tbl-kiri2">Kel</th>
+                                <th class="tbl-kiri2">Kode Akun</th>
+                                <th>Opsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         <?php 
                         $no = 1;
                         foreach ($this->db->get_where('pemilih', array('id_pemilihan'=>$this->uri->segment(3)))->result() as $row) {
@@ -67,6 +72,7 @@
                                 </a></td>
                         </tr>
                         <?php $no++; } ?>
+                        </tbody>
                         
                     </table>
                     <!-- <div class="pagination">
@@ -178,7 +184,7 @@
                     Download format - Isi - Upload.
                 </p>
                 <a class="button button-full button-xxs shadow-large button-round-small bg-green2-dark top-10"
-                    type="submit" onclick="window.open('/document/Template Data Pemilih.xlsx')">Download Format Excel</a>
+                    type="submit" onclick="window.open('<?php echo base_url() ?>front/document/template_import_pemilih.xlsx')">Download Format Excel</a>
                 <div class="garis-vertical"></div>
                 <div>
                     <img class="preload-image horizontal-center" width="80" src="front/images/preload-logo.png"
@@ -217,6 +223,8 @@
     <div class="menu-hider"></div>
 
 <script type="text/javascript">
+     $('#example').DataTable();
+
     var vm = new Vue({
     el: "#page",
     data : {
@@ -264,5 +272,6 @@
         //   console.log(this.status_np);
         // }
     }
-})
+});
+
 </script>

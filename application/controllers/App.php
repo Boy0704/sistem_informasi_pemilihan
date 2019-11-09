@@ -7,9 +7,9 @@ class App extends CI_Controller {
 	
 	public function index()
 	{
-        // if ($this->session->userdata('username') == '') {
-        //     redirect('app/login');
-        // }
+        if ($this->session->userdata('level') == 'panitia') {
+            redirect('app/panitia');
+        }
 		$data = array(
 			'konten' => 'front/home',
             'judul_page' => 'Dashboard',
@@ -185,6 +185,21 @@ class App extends CI_Controller {
 			);
 			$this->load->view('f_index', $data);
 		} else {
+			$config['upload_path'] = './front/images/pemilihan/';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size']  = '10000';
+            $config['file_name']  = time();
+            
+            $this->load->library('upload', $config);
+            
+            if ( ! $this->upload->do_upload('foto')){
+                echo $this->upload->display_errors();
+            }
+            else{
+                $this->image = $this->upload->data('file_name');
+            }
+
+			$_POST['foto'] = $this->image;
 			$_POST['id_user'] = $this->session->userdata('id_user');
 			$this->db->where('id_pemilihan', $id_pemilihan);
 			$this->db->update('pemilihan', $_POST);
@@ -251,6 +266,22 @@ class App extends CI_Controller {
 			);
 			$this->load->view('f_index', $data);
 		} else {
+			$config['upload_path'] = './front/images/pemilihan/';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size']  = '10000';
+            $config['file_name']  = time();
+            
+            $this->load->library('upload', $config);
+            
+            if ( ! $this->upload->do_upload('foto')){
+                echo $this->upload->display_errors();
+            }
+            else{
+                $this->image = $this->upload->data('file_name');
+            }
+
+			$_POST['foto'] = $this->image;
+
 			$_POST['id_user'] = $this->session->userdata('id_user');
 			$this->db->insert('pemilihan', $_POST);
 			$insert_id = $this->db->insert_id();

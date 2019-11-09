@@ -1,3 +1,4 @@
+
 <?php 
 $rw = $data->row();
  ?>
@@ -27,7 +28,7 @@ $rw = $data->row();
         <div class="page-content header-clear-kecil">
 
             <div class="profile-2">
-                <img class="profile-image preload-image" data-src="front/images/pictures/8s.jpg" alt="img">
+                <img class="profile-image preload-image" data-src="front/images/pemilihan/<?php echo $rw->foto ?>" alt="img">
                 <div class="profile-body">
                     <h1 class="judul-medium"><?php echo $rw->nama_pemilihan ?>.</h1>
                     <h2 class="profile-sub-heading"><a href="#" class="color-highlight"><?php echo $rw->kelurahan ?></a></h2>
@@ -63,8 +64,8 @@ $rw = $data->row();
                             foreach ($this->db->get_where('calon',array('id_pemilihan'=>$id_pemilihan))->result() as $key => $rw) {
                              ?>
                             <a class="show-gallery polaroid-effect" href="#" title="Vynil and Typerwritter">
-                                <img src="front/images/empty.png" data-src="front/images/calon/<?php echo $rw->foto ?>"
-                                    class="preload-image responsive-image" alt="img">
+                                <img src="front/images/calon/<?php echo $rw->foto ?>"
+                                    class="contain" alt="img">
                                 <div class="nama-calon-kcl">
                                     <span class="color-theme"><?php echo $rw->nama_calon ?></span></div>
                                 <span class="nomer"><?php echo $rw->no_calon ?></span>

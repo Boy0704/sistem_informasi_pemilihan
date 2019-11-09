@@ -77,7 +77,7 @@
                 </div>
                 <div class="clear"></div>
 
-                <a href="pemilihan-aktif.html"
+                <a href="app/pemilihan_aktif"
                     class="button button-s button-full button-round-medium bg-highlight shadow-large">LIHAT
                     SEMUA PEMILIHAN AKTIF </a>
 

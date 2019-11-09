@@ -14,7 +14,21 @@
                 <?php 
                 if ($this->session->flashdata('id_pemilihan') == '') {
                     ?>  
-                    <form action="" method="POST">
+                    <form action="" method="POST" enctype="multipart/form-data">
+
+               <div>
+                    <p class="bottom-0 top-15 text-center">Preview Foto</p>
+                    <img v-if="url" class="preload-image horizontal-center" width="80" :src="foto"
+                        :data-src="foto" alt="img"
+                        style="border: dashed; border-width: thin; color: darkgrey; padding: 5px; margin-bottom: 12px;">
+                </div>
+                <div class="input-style input-light has-icon input-style-1">
+                    <i class="input-icon fa fa-image"></i>
+                    <label>Upload Foto</label>
+                    <em>(terkunci)</em>
+                    <input type="file" name="foto"  multiple accept='image/*' @change="onFileChange"required>
+                </div>
+
                 <div class="input-style input-style-1 input-required">
                     <span>Kategori Pemilihan</span>
                     <em><i class="fa fa-angle-down"></i></em>
@@ -119,6 +133,20 @@
 
                  ?>
                 <form action="app/edit_pemilihan/<?php echo $this->session->flashdata('id_pemilihan') ?>" method="POST">
+
+                <div>
+                    <p class="bottom-0 top-15 text-center">Preview Foto</p>
+                    <img class="preload-image horizontal-center" width="80" src="<?php echo base_url() ?>front/images/pemilihan/<?php echo $data->foto ?>"
+                        data-src="<?php echo base_url() ?>front/images/pemilihan/<?php echo $data->foto ?>" alt="img"
+                        style="border: dashed; border-width: thin; color: darkgrey; padding: 5px; margin-bottom: 12px;">
+                </div>
+                <div class="input-style input-light has-icon input-style-1">
+                    <i class="input-icon fa fa-image"></i>
+                    <label>Upload Foto</label>
+                    <em>(terkunci)</em>
+                    <input type="file" name="foto"  multiple accept='image/*' @change="onFileChange"required>
+                </div>
+
                 <div class="input-style input-style-1 input-required">
                     <span>Kategori Pemilihan</span>
                     <em><i class="fa fa-angle-down"></i></em>
@@ -226,3 +254,39 @@
         </div>
     </div>
     <div class="menu-hider"></div>
+
+
+    <script type="text/javascript">
+    var vm = new Vue({
+    el: "#page",
+    data : {
+        judul : '',
+        kab : '',
+        link1 : '',
+        link2 : '',
+        url : false,
+        foto : null,
+    },
+    computed:{
+        
+    }, 
+    methods:{
+        infoModal: function(id_p,judul,kab) {
+            this.judul = judul
+            this.kab = kab
+            this.link1 = 'app/info_pemilihan/'+id_p
+            this.link2 = 'app/lakukan_pemilihan/'+id_p
+            this.link3 = 'app/lihat_hasil/'+id_p
+            this.link4 = 'app/lihat_status_pemilih/'+id_p
+        },
+        onFileChange(e)
+            {
+                const file = e.target.files[0];
+                this.foto = URL.createObjectURL(file);
+                this.url = true;
+            }
+    }
+    
+
+})
+</script>
