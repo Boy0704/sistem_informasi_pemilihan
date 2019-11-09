@@ -29,14 +29,14 @@
                  ?>
                 <div class="sisp-list-item bottom-10">
                     <a href="#" @click="infoModal('<?php echo $rw->id_pemilihan ?>','<?php echo $rw->nama_pemilihan ?>','<?php echo $rw->kelurahan ?>')" data-menu="menu-pemilihan-draft">
-                        <img class="preload-image shadow-small round-small" src="front/images/empty.png"
-                            data-src="<?php echo $foto = ($rw->foto == null) ? '' : 'front/images/pemilihan/'.$rw->foto ?> " alt="img">
+                        <img class="preload-image shadow-small round-small crop" src="front/images/empty.png"
+                            data-src="<?php echo $foto = ($rw->foto == null) ? '' : 'front/images/pemilihan/'.$rw->foto ?> " alt="img" style="width: 80px; height: 80px;">
                         <strong>
                             <?php echo $rw->nama_pemilihan ?>
                         </strong>
                     </a>
                     <span>
-                        <a href="#" class="bg-green1">Aktif</a>
+                        <a href="#" class="bg-aktif2">Aktif</a>
                         <i class="fas fa-map-marked-alt"></i><?php echo $rw->kelurahan ?>
                     </span>
                 </div>

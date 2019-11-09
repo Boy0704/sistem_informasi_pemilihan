@@ -47,10 +47,26 @@ $rw = $data->row();
                     <div class="divider divider-margins bottom-10"></div>
 
                     <div class="profile-stats">
-                        <a href="#"></i>0<em class="color-blue1-dark">Calon</em></a>
-                        <a href="#"></i>0<em class="color-blue1-dark">Pemilih</em></a>
-                        <a href="#"></i>0<em class="color-green1-dark">Sudah Pilih</em></a>
-                        <a href="#"></i>0<em class="color-red1-dark">Belum Pilih</em></a>
+                        <a href="#"></i><?php 
+                        echo $this->db->get_where('calon',array('id_pemilihan'=>$id_pemilihan))->num_rows();
+                         ?><em class="color-blue1-dark">Calon</em></a>
+                        <a href="#"></i>
+                            <?php 
+                        echo $this->db->get_where('pemilih',array('id_pemilihan'=>$id_pemilihan))->num_rows();
+                         ?>
+                            <em class="color-blue1-dark">Pemilih</em></a>
+                        <a href="#"></i>
+                            <?php 
+                        echo $this->db->query("SELECT id_pemilih FROM detail_pilih where id_pemilihan='$id_pemilihan' group by id_pemilih")->num_rows();
+                         ?>
+                            <em class="color-green1-dark">Sudah Pilih</em></a>
+                        <a href="#"></i>
+                            <?php 
+                        $sudah_pilih = $this->db->query("SELECT id_pemilih FROM detail_pilih where id_pemilihan='$id_pemilihan' group by id_pemilih")->num_rows();
+                        $total_pemilih = $this->db->query("SELECT id_pemilih FROM pemilih where id_pemilihan='$id_pemilihan'")->num_rows();
+                        echo $total_pemilih - $sudah_pilih;
+                            ?>
+                            <em class="color-red1-dark">Belum Pilih</em></a>
                         <div class="clear"></div>
                     </div>
 
@@ -65,7 +81,7 @@ $rw = $data->row();
                              ?>
                             <a class="show-gallery polaroid-effect" href="#" title="Vynil and Typerwritter">
                                 <img src="front/images/calon/<?php echo $rw->foto ?>"
-                                    class="contain" alt="img">
+                                    class="crop" alt="img" style="width: 120px; height: 100px;">
                                 <div class="nama-calon-kcl">
                                     <span class="color-theme"><?php echo $rw->nama_calon ?></span></div>
                                 <span class="nomer"><?php echo $rw->no_calon ?></span>

@@ -31,7 +31,7 @@
                             <h4 class="color-white center-text uppercase ultrabold bottom-40"><?php echo $rw->nama_pemilihan ?></h4>
                         </div>
                         <div class="caption-overlay bg-gradient"></div>
-                        <img class="caption-image owl-lazy" data-src="front/images/pemilihan/<?php echo $rw->foto ?>" style=" height: 250px;">
+                        <img class="caption-image owl-lazy crop" data-src="front/images/pemilihan/<?php echo $rw->foto ?>" style=" height: 250px;">
                     </div>
                     
                 </div>
@@ -51,8 +51,8 @@
                      ?>
                     <div class="sisp-col-item">
                         <a href="#" @click="infoModal('<?php echo $rw->id_pemilihan ?>','<?php echo $rw->nama_pemilihan ?>','<?php echo $rw->kelurahan ?>')" data-menu="menu-pemilihan">
-                            <img class="preload-image shadow-large round-small" src="front/images/empty.png"
-                                data-src="front/images/pemilihan/<?php echo $rw->foto ?>" class="responsive-image" alt="img" style="width: 200px;">
+                            <img class="preload-image shadow-large round-small crop" src="front/images/empty.png"
+                                data-src="front/images/pemilihan/<?php echo $rw->foto ?>" class="responsive-image" alt="img" style="width: 200px; height: 100px;">
                             <em class="bg-aktif"> <?php echo selisih_waktu($rw->start_date) ?></em>
                             <strong><?php echo $rw->nama_pemilihan ?></strong>
                         </a>
@@ -67,9 +67,9 @@
                     // cek_query();
                      ?>
                     <div class="sisp-col-item">
-                        <a href="#" data-menu="menu-pemilihan">
-                            <img class="preload-image shadow-large round-small" src="front/images/empty.png"
-                                data-src="front/images/pemilihan/<?php echo $rw->foto ?>" class="responsive-image" alt="img" style="width: 200px;">
+                        <a href="#" @click="infoModal('<?php echo $rw->id_pemilihan ?>','<?php echo $rw->nama_pemilihan ?>','<?php echo $rw->kelurahan ?>')" data-menu="menu-pemilihan">
+                            <img class="preload-image shadow-large round-small crop" src="front/images/empty.png"
+                                data-src="front/images/pemilihan/<?php echo $rw->foto ?>" class="responsive-image" alt="img" style="width: 200px; height: 100px;">
                             <em class="bg-aktif"><?php echo selisih_waktu($rw->start_date) ?></em>
                             <strong><?php echo $rw->nama_pemilihan ?></strong>
                         </a>

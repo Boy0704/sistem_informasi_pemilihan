@@ -44,8 +44,8 @@
                  ?>
                 <div class="sisp-list-item bottom-10">
                     <a href="#" @click="infoModal('<?php echo $row->id_pemilihan ?>','<?php echo $row->nama_pemilihan ?>','<?php echo $status ?>')" data-menu="menu-pemilihan-admin-<?php echo $status ?>">
-                        <img class="preload-image shadow-small round-small" src="front/images/empty.png"
-                            data-src="front/images/pictures/5s.jpg" alt="img">
+                        <img class="preload-image shadow-small round-small crop" src="front/images/empty.png"
+                            data-src="front/images/pemilihan/<?php echo $row->foto ?>" alt="img" style="width: 70px; height: 70px;">
                         <strong>
                             <?php echo $row->nama_pemilihan ?>
                         </strong>
@@ -168,22 +168,22 @@
         <!-- Menu Pemilihan Admin ARSIP -->
         <div id="menu-pemilihan-admin-arsip" class="menu menu-box-modal" data-menu-height=" 320" data-menu-width="310"
             data-menu-effect="menu-over">
-            <h5 class="center-text top-10">Pemilihan Ketua OSIS SMP Muhammadiyah Puraseda</h5>
+            <h5 class="center-text top-10">{{judul}}</h5>
             <div class="divider-small"></div>
             <div class="link-list link-list-1 content bottom-0">
-                <a href="info-pemilihan.html" class="">
+                <a :href="link1" class="">
                     <i class="fas fa-info-circle fa-lg"></i>
                     <span class="font-13">
                         Informasi</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="lihat-hasil.html" class="">
+                <a :href="link4" class="">
                     <i class="fas fa-poll fa-lg" style="color:gray"></i>
                     <span class="font-13">
                         Lihat Hasil Pemilihan</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
-                <a href="status-pemilih.html" class="">
+                <a :href="link5" class="">
                     <i class="fas fa-user-check fa-lg" style="color:gray"></i>
                     <span class="font-13">
                         Lihat Status Pemilih</span>
@@ -252,6 +252,11 @@ methods:{
             this.link5 = 'app/lihat_status_pemilih/'+id_p
             this.link6 = 'app/reset_pemilihan/'+id_p
             this.link7 = 'app/aktifkan_pemilihan/'+id_p
+        } else if(status == 'arsip') {
+            this.judul = judul
+            this.link1 = 'app/info_pemilihan/'+id_p
+            this.link4 = 'app/lihat_hasil/'+id_p
+            this.link5 = 'app/lihat_status_pemilih/'+id_p
         }
     }
 }

@@ -14,8 +14,8 @@
                      ?>
                     <div class="sisp-list-item">
                         <a href="#">
-                            <img class="preload-image shadow-large round-small" src="front/images/calon/<?php echo $row->foto ?>"
-                                data-src="front/images/calon/<?php echo $row->foto ?>" alt="img">
+                            <img class="preload-image shadow-large round-small crop" src="front/images/calon/<?php echo $row->foto ?>"
+                                data-src="front/images/calon/<?php echo $row->foto ?>" alt="img" style="width: 80px; height: 80px;">
                             <strong style="font-weight: 300">Nomor Calon: <?php echo $row->no_calon ?></strong>
                         </a>
                         <a href="#">
