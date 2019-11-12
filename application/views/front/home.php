@@ -94,7 +94,7 @@
                  ?>
 
                 <div class="sisp-list-item">
-                    <a href="#">
+                    <a href="#" @click="infoModal('<?php echo $rw->id_pemilihan ?>','<?php echo $rw->nama_pemilihan ?>','<?php echo $rw->kelurahan ?>')">
                         <img class="preload-image shadow-large round-small" src="front/images/empty.png"
                             data-src="front/images/pemilihan/<?php echo $rw->foto ?>" alt="img">
                         <strong><?php echo $rw->nama_pemilihan ?></strong>
