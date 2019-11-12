@@ -1,4 +1,11 @@
 <?php 
+function jumlah_pilih($id_pemilih,$id_pemilihan)
+{
+	$CI =& get_instance();
+	$data = $CI->db->get_where('detail_pilih',array('id_pemilih'=>$id_pemilih,'id_pemilihan'=>$id_pemilihan))->num_rows();
+	$jml = $data;
+	return $jml;
+}
 
 function status_pemilih($id_pemilih,$id_pemilihan)
 {

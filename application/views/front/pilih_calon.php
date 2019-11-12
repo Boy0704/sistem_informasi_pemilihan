@@ -39,9 +39,9 @@
                  ?>
 
 
-                <div class="one-half">
+                <div class="one-half" id="id_status<?php echo $value->id_calon ?>" style="display: block;">
                     <a href="#">
-                        <img data-src="front/images/calon/<?php echo $value->foto ?>" src="front/images/empty.png" alt="img"
+                        <img @click="infoModal('<?php echo $value->foto ?>','<?php echo $value->nama_calon ?>','<?php echo $value->visi ?>','<?php echo $value->misi ?>','<?php echo $value->program_lain ?>')" data-src="front/images/calon/<?php echo $value->foto ?>" src="front/images/empty.png" alt="img"
                             class="preload-image responsive-image round-small shadow-large bottom-20 crop" style="width: 200px; height: 200px;">
                     </a>
                     <div class="nama-calon-sdg color-theme"><?php echo $value->nama_calon ?></div>
@@ -53,7 +53,7 @@
                     } else {
                      ?>
                     <div class="center-text">
-                        <a id="id_status<?php echo $value->id_calon ?>" class="button button-full button-m shadow-large button-round-small bg-highlight bottom-0" style="display: none;">ANDA TELAH MEMILIH</a>
+                        <!-- <a id="id_status<?php echo $value->id_calon ?>" class="button button-full button-m shadow-large button-round-small bg-highlight bottom-0" >ANDA TELAH MEMILIH</a> -->
                         <a href="#" @click="infoModal('<?php echo $value->foto ?>','<?php echo $value->nama_calon ?>','<?php echo $value->visi ?>','<?php echo $value->misi ?>','<?php echo $value->program_lain ?>')" id="id_profil<?php echo $value->id_calon ?>" class="button button-xxs shadow-small button-round-small bg-blue2-dark"
                             data-menu="profil-calon">Profil</a>
                         <a href="#" @click="pilih_calon('<?php echo $value->id_calon ?>','<?php echo $this->session->userdata('id_user') ?>','<?php echo $value->id_pemilihan ?>')" id="id<?php echo $value->id_calon ?>" class="button button-xxs shadow-small button-round-small bg-green2-dark">Pilih</a>
@@ -127,8 +127,8 @@
         visi : '',
         misi : '',
         program : '',
-        harus_pilih : 3,
-        telah_pilih : 0,
+        harus_pilih : <?php echo get_data('pemilihan','id_pemilihan',$id_pemilihan,'jumlah_pemilihan'); ?>,
+        telah_pilih : <?php echo jumlah_pilih($this->session->userdata('id_user'),$this->uri->segment(3)) ?>,
         pilih_lagi : 3,
         hideSelesai: false,
         status_pilih: false,
@@ -181,7 +181,7 @@
                         this.pilih_lagi = this.harus_pilih - this.telah_pilih
                         document.getElementById('id'+id_calon).style.display = 'none';
                         document.getElementById('id_profil'+id_calon).style.display = 'none';
-                        document.getElementById('id_status'+id_calon).style.display = 'block';
+                        document.getElementById('id_status'+id_calon).style.display = 'none';
 
                       swal("Terima kasih!", "Pilihan anda berhasil disimpan!", "success");
                       break;

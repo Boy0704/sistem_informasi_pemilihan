@@ -252,7 +252,7 @@
             this.type_input = 'edit'
         },
         hapus_pemilih: function(id_pemilih) {
-            this.hapus = 'app/hapus_pemilih/'+id_pemilih
+            this.hapus = 'app/hapus_pemilih/'+id_pemilih+'/<?php echo $this->uri->segment(3) ?>'
         }
         // cek_nama: function() {
 

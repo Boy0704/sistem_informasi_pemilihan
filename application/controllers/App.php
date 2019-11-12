@@ -422,7 +422,7 @@ class App extends CI_Controller {
 		} else {
 			if ($_POST['type_input'] == 'tambah') {
 				unset($_POST['type_input']);
-				$query = $this->db->get_where('pemilih', array('nama_pemilih'=>$_POST['nama_pemilih']));
+				$query = $this->db->get_where('pemilih', array('nama_pemilih'=>$_POST['nama_pemilih'],'id_pemilihan'=>$this->uri->segment(3)));
 				if ($query->num_rows() == 1) {
 					$this->session->set_flashdata('message', alert_biasa('Nama calon sudah ada\n silahkan nama lain !','info'));
 					redirect('app/data_pemilih/'.$id_pemilihan,'refresh');
