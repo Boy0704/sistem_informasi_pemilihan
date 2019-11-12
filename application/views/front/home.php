@@ -94,7 +94,7 @@
                  ?>
 
                 <div class="sisp-list-item">
-                    <a href="#" @click="infoModal('<?php echo $rw->id_pemilihan ?>','<?php echo $rw->nama_pemilihan ?>','<?php echo $rw->kelurahan ?>')">
+                    <a href="#"  @click="infoModal('<?php echo $rw->id_pemilihan ?>','<?php echo $rw->nama_pemilihan ?>','<?php echo $rw->kelurahan ?>')" data-menu="menu-pemilihan-arsip">
                         <img class="preload-image shadow-large round-small" src="front/images/empty.png"
                             data-src="front/images/pemilihan/<?php echo $rw->foto ?>" alt="img">
                         <strong><?php echo $rw->nama_pemilihan ?></strong>
@@ -129,6 +129,35 @@
                     <span class="font-13">Lakukan Pemilihan</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
+                <a :href="link3" class="">
+                    <i class="fas fa-poll fa-lg" style="color:green"></i>
+                    <span class="font-13">Lihat Hasil Pemilihan</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <a :href="link4" class="">
+                    <i class="fas fa-user-check fa-lg" style="color:green"></i>
+                    <span class="font-13">Lihat Status Pemilih</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Menu Lakukan Pemilihan REV -->
+        <div id="menu-pemilihan-arsip" class="menu menu-box-modal" data-menu-height="320" data-menu-width="310" data-menu-effect="menu-over">
+            <h4 class="center-text top-30">{{judul}}</h4>
+            <div class="divider-small"></div>
+            <h6 class="center-text">{{kab}}</h6>
+            <div class="link-list link-list-1 content bottom-0">
+                <a :href="link1" class="">
+                    <i class="fas fa-info-circle fa-lg"></i>
+                    <span class="font-13">Informasi Pemilihan</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <!-- <a :href="link2" class="">
+                    <i class="fas fa-chevron-circle-up fa-2x fa-spin" style="color:green"></i>
+                    <span class="font-13">Lakukan Pemilihan</span>
+                    <i class="fa fa-angle-right"></i>
+                </a> -->
                 <a :href="link3" class="">
                     <i class="fas fa-poll fa-lg" style="color:green"></i>
                     <span class="font-13">Lihat Hasil Pemilihan</span>
