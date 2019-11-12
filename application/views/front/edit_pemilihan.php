@@ -24,7 +24,7 @@ $dt = $data->row();
                     <i class="input-icon fa fa-image"></i>
                     <label>Upload Foto</label>
                     <em>(terkunci)</em>
-                    <input type="file" name="foto"  multiple accept='image/*' @change="onFileChange"required>
+                    <input type="file" name="foto"  multiple accept='image/*' @change="onFileChange" >
                 </div>
 
                 <div class="input-style input-style-1 input-required">

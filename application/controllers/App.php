@@ -19,14 +19,31 @@ class App extends CI_Controller {
 
     public function admin()
 	{
-        // if ($this->session->userdata('username') == '') {
-        //     redirect('app/login');
-        // }
+        if ($this->session->userdata('level') != 'admin') {
+            redirect('app/login');
+        }
 		$data = array(
 			'konten' => 'home_admin',
             'judul_page' => 'Dashboard',
 		);
 		$this->load->view('v_index', $data);
+    }
+
+    public function kontak_admin()
+	{
+        if ($this->session->userdata('level') != 'admin') {
+            redirect('app/login');
+        }
+		if ($_POST == NULL) {
+			$data = array(
+				'konten' => 'wa_admin',
+	            'judul_page' => 'WA admin',
+			);
+			$this->load->view('v_index', $data);
+		}else{
+			$this->db->where('id_setting', 1);
+			$this->db->update('setting', $_POST);
+		}
     }
 
     public function panitia()

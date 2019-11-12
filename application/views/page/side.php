@@ -29,8 +29,9 @@
         
         <li><a href="app/admin"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
         <li><a href="Kategori"><i class="fa fa-list"></i> <span>Master Kategori</span></a></li>
-        <li><a href="calon"><i class="fa fa-odnoklassniki"></i> <span>Master Calon</span></a></li>
-        <li><a href="pemilih"><i class="fa fa-odnoklassniki"></i> <span>Master Pemilih</span></a></li>
+        <li><a href="app/kontak_admin"><i class="fa fa-edit"></i> <span>WA Admin</span></a></li>
+        <!-- <li><a href="calon"><i class="fa fa-odnoklassniki"></i> <span>Master Calon</span></a></li>
+        <li><a href="pemilih"><i class="fa fa-odnoklassniki"></i> <span>Master Pemilih</span></a></li> -->
         <li><a href="pemilihan"><i class="fa fa-share-square"></i> <span>Set Pemilihan</span></a></li>
         <li><a href="admin"><i class="fa fa-users"></i> <span>Master User</span></a></li>
 
