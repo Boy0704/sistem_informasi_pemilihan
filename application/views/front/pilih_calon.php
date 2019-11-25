@@ -79,7 +79,10 @@
                             Telah Dipilih</td>
                         <td class="wd-70" style="line-height: 25px; padding: 0px; font-size: 11px;color: darkorange;">
                             Pilih Lagi</td>
-                        <td v-if="hideSelesai" rowspan="2" @click="selesai_pilih()" style="padding:0px;"><a class="button tombol-selesai bg-green2-dark">SELESAI</a></td>
+                       
+                        <td v-show="hideSelesai" rowspan="2" @click="selesai_pilih()" style="padding:0px;"><a class="button tombol-selesai bg-green2-dark">SELESAI</a></td>
+                     
+                        
                     </tr>
                     <tr>
                         <th class="data-pilih ">{{harus_pilih}}</th>
@@ -129,7 +132,7 @@
         program : '',
         harus_pilih : <?php echo get_data('pemilihan','id_pemilihan',$id_pemilihan,'jumlah_pemilihan'); ?>,
         telah_pilih : <?php echo jumlah_pilih($this->session->userdata('id_user'),$this->uri->segment(3)) ?>,
-        pilih_lagi : 3,
+        pilih_lagi : 0,
         hideSelesai: false,
         status_pilih: false,
 
@@ -179,6 +182,11 @@
 
                         this.telah_pilih += 1
                         this.pilih_lagi = this.harus_pilih - this.telah_pilih
+                        console.log(this.telah_pilih);
+                        if (this.telah_pilih == <?php echo get_data('pemilihan','id_pemilihan',$id_pemilihan,'jumlah_pemilihan'); ?>) {
+                            this.hideSelesai = true;
+                            console.log(this.telah_pilih);
+                        }
                         document.getElementById('id'+id_calon).style.display = 'none';
                         document.getElementById('id_profil'+id_calon).style.display = 'none';
                         document.getElementById('id_status'+id_calon).style.display = 'none';
@@ -191,10 +199,7 @@
                   }
                 });
                 
-                if (this.telah_pilih == this.harus_pilih) {
-                    this.hideSelesai = true;
-                    console.log(this.telah_pilih);
-                }
+                
                 
                 
                 // swal('Pilihan anda berhasil disimpan', 'klik Ok!', );

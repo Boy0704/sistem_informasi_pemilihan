@@ -33,6 +33,7 @@
         <!-- <li><a href="calon"><i class="fa fa-odnoklassniki"></i> <span>Master Calon</span></a></li>
         <li><a href="pemilih"><i class="fa fa-odnoklassniki"></i> <span>Master Pemilih</span></a></li> -->
         <li><a href="pemilihan"><i class="fa fa-share-square"></i> <span>Set Pemilihan</span></a></li>
+        <li><a href="slide"><i class="fa fa-image"></i> <span>Set Slide</span></a></li>
         <li><a href="admin"><i class="fa fa-users"></i> <span>Master User</span></a></li>
 
         <li class="header">LABELS</li>

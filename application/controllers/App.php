@@ -58,6 +58,13 @@ class App extends CI_Controller {
 		$this->load->view('f_index', $data);
     }
 
+    public function status_slide($n,$id)
+    {
+    	$this->db->where('id_slide', $id);
+    	$this->db->update('slide', array('aktif'=>$n));
+    	redirect('slide','refresh');
+    }
+
     public function bantuan()
 	{
         // if ($this->session->userdata('username') == '') {

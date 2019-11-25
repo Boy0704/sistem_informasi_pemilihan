@@ -9,11 +9,13 @@
 
         <div class="page-content header-clear">
             <link rel="stylesheet" type="text/css" href="front/styles/sisp.css">
-            <div class="double-slider owl-carousel owl-no-dots">
+            <div class="single-slider owl-carousel owl-no-dots bottom-30">
+                
+                
                 <?php 
                 $this->db->limit(5);
-                $this->db->where('status', 1);
-                foreach ($this->db->get('pemilihan')->result() as $rw) {
+                $this->db->where('aktif', 1);
+                foreach ($this->db->get('slide')->result() as $rw) {
                  ?>
                 <!-- <a href="#" class="sisp-slide-1">
                     <img src="front/images/pictures/17m.jpg" class="responsive-image" alt="">
@@ -21,20 +23,17 @@
                     <em class="bg-aktif">Aktif</em>
                     <span class="bg-gradient"></span>
                 </a> -->
-
+                <a href="#" class="sisp-slide-1">
+                    <img src="front/images/slide/<?php echo $rw->foto ?>" class="responsive-image" alt="">
+                    <strong class="font-16"><?php echo $rw->keterangan ?>.</strong>
+                    <!-- <em class="bg-aktif"></em> -->
+                    <span class="bg-gradient"></span>
+                    
+                </a>
 
 
                
-                <div>
-                    <div class="caption round-medium shadow-large">
-                        <div class="caption-bottom">
-                            <h4 class="color-white center-text uppercase ultrabold bottom-40"><?php echo $rw->nama_pemilihan ?></h4>
-                        </div>
-                        <div class="caption-overlay bg-gradient"></div>
-                        <img class="caption-image owl-lazy crop" data-src="front/images/pemilihan/<?php echo $rw->foto ?>" style=" height: 250px;">
-                    </div>
-                    
-                </div>
+                
 
             <?php } ?>
                 
